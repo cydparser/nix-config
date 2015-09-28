@@ -6,6 +6,6 @@
     options = "rw,dmask=022";
   };
 
-  services.virtualboxGuest.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
 
 }

@@ -40,13 +40,19 @@
   };
 
   environment.systemPackages = with pkgs; [
-    curl
+    aspell
+    cppcheck
+    ctags
+    emacs
     firefox
     git
+    gnutls-cli
+    mkpasswd
+    nixops
+    openssl
+    pinentry
     thunderbird
     tmux
-    vim
-    wget
     zsh
   ];
 
