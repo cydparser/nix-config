@@ -42,6 +42,7 @@
         zsh
       ]) ++ (with nu.pkgs; [
         blender
+        clang
         docker
         emacs
         firefox
@@ -92,9 +93,14 @@
     ];
   };
 
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
+  hardware = {
+    opengl.driSupport32Bit  = true;
+
+    pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+      support32Bit = true;
+    };
   };
 
   nixpkgs.config = {
