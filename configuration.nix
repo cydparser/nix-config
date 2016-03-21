@@ -25,6 +25,7 @@
         cppcheck
         csslint
         ctags
+        dmenu
         gnutls
         graphviz
         jq
@@ -36,7 +37,9 @@
         pinentry
         pylint
         ruby
+        termite
         tmux
+        vim
         w3m
         z3
         zsh
@@ -49,7 +52,9 @@
         gimp
         git
         inkscape
+        nodejs
         thunderbird
+        torbrowser
       ]) ++ (with nu.haskellPackages; [
         ShellCheck
         apply-refact
@@ -57,11 +62,13 @@
         cabal2nix
         criterion
         ghc
+        ghc-mod
         hakyll
         hasktags
         hindent
         hlint
         hoogle
+        hpack
         hpc_0_6_0_2
         hspec-discover
         json-autotype
