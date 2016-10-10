@@ -22,6 +22,7 @@
     in
       (with pkgs; [
         aspell
+        aspellDicts.en
         cppcheck
         csslint
         ctags
@@ -35,8 +36,9 @@
         nixpkgs-lint
         openssl
         pinentry
-        pylint
+        python35Packages.pylint
         ruby
+        silver-searcher
         termite
         tmux
         vim
@@ -45,6 +47,7 @@
         zsh
       ]) ++ (with nu.pkgs; [
         blender
+        brotli
         clang
         docker
         emacs
@@ -58,27 +61,23 @@
       ]) ++ (with nu.haskellPackages; [
         ShellCheck
         apply-refact
+        bench
         cabal-install
         cabal2nix
+        codex
         criterion
         ghc
-        ghc-mod
         hakyll
         hasktags
         hindent
         hlint
         hoogle
         hpack
-        hpc_0_6_0_2
+        hpc_0_6_0_3
         hspec-discover
-        json-autotype
-        lentil
-        liquidhaskell
         pandoc
         shake
         stack
-        structured-haskell-mode
-        stylish-haskell
         xmobar
       ]);
 
@@ -136,7 +135,6 @@
       autorun = true;
       enable = true;
       layout = "us";
-      startGnuPGAgent = true;
 
       desktopManager = {
         default = "none";
@@ -144,6 +142,9 @@
         xterm.enable = false;
       };
       displayManager = {
+        sessionCommands = ''
+          xset r rate 300 50
+        '';
         slim = {
           autoLogin = false;
           defaultUser = "cyd";
@@ -162,7 +163,7 @@
 
   system = {
     # autoUpgrade.enable = true;
-    stateVersion = "15.09";
+    stateVersion = "16.09";
   };
 
   virtualisation.docker = {
