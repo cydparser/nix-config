@@ -168,6 +168,8 @@
     stateVersion = "16.09";
   };
 
+  time.timeZone = "US/Pacific";
+
   virtualisation.docker = {
     enable = true;
     storageDriver = "devicemapper";
