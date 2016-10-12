@@ -27,9 +27,11 @@
         csslint
         ctags
         dmenu
+        gnupg
         gnutls
         graphviz
         jq
+        keychain
         mkpasswd
         nix-repl
         nixops
