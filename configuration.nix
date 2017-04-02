@@ -142,7 +142,6 @@
         '';
         slim = {
           autoLogin = false;
-          defaultUser = "cyd";
           enable = true;
         };
       };
