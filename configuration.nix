@@ -73,6 +73,7 @@
         pandoc
         shake
         stack
+        threadscope
         xmobar
       ]);
 
