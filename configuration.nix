@@ -140,7 +140,6 @@
 
       desktopManager = {
         default = "none";
-        kde4.enable = false;
         xterm.enable = false;
       };
       displayManager = {
@@ -165,7 +164,7 @@
 
   system = {
     # autoUpgrade.enable = true;
-    stateVersion = "16.09";
+    stateVersion = "17.03";
   };
 
   time.timeZone = "US/Pacific";

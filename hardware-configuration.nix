@@ -6,22 +6,27 @@
 {
   imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "ohci_pci" "ehci_pci" "ahci" ];
+  boot.initrd.availableKernelModules = [ "ohci_pci" "ahci" "sd_mod" "sr_mod" ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3c196574-9e41-4022-a55e-3c881e2b1260";
+    { device = "/dev/disk/by-label/nixos";
+      fsType = "ext4";
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-label/home";
       fsType = "ext4";
     };
 
   fileSystems."/var/lib/docker" =
-   { device = "/dev/disk/by-label/docker";
-     fsType = "ext4";
-   };
+    { device = "/dev/disk/by-label/docker";
+      fsType = "ext4";
+    };
 
   swapDevices = [ ];
 
-  nix.maxJobs = 2;
+  nix.maxJobs = lib.mkDefault 3;
   virtualisation.virtualbox.guest.enable = true;
 }
