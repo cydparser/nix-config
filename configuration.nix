@@ -44,21 +44,16 @@
         termite
         tmux
         vim
-        w3m
         z3
         zsh
       ]) ++ (with nu.pkgs; [
-        blender
         brotli
         clang
         docker
         emacs
         firefox
-        gimp
         git
-        inkscape
         nodejs
-        thunderbird
         torbrowser
       ]) ++ (with nu.haskellPackages; [
         ShellCheck
@@ -67,9 +62,7 @@
         cabal-install
         cabal2nix
         codex
-        criterion
         ghc
-        hakyll
         hasktags
         hindent
         hlint
