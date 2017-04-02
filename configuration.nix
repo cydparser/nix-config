@@ -124,7 +124,7 @@
 
   services = {
     ntp.enable = true;
-    openssh.enable = true;
+    openssh.enable = false;
     printing.enable = true;
 
     xserver = {
