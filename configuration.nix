@@ -115,7 +115,7 @@
   };
 
   programs = {
-    ssh.startAgent = false;
+    ssh.startAgent = true;
   };
 
   services = {
