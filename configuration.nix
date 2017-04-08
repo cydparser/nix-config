@@ -21,8 +21,6 @@
       nu = import (fetchTarball https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz) {};
     in
       (with pkgs; [
-        aspell
-        aspellDicts.en
         cppcheck
         csslint
         ctags
@@ -30,6 +28,8 @@
         gnupg
         gnutls
         graphviz
+        hunspell
+        hunspellDicts.en-us
         jq
         keychain
         mkpasswd
