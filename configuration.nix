@@ -50,10 +50,8 @@
         z3
         zsh
       ]) ++ (with nu.pkgs; [
-        brotli
         docker
         firefox
-        nodejs
         torbrowser
       ]) ++ (with nu.haskellPackages; [
         ShellCheck
@@ -61,20 +59,17 @@
         bench
         cabal-install
         cabal2nix
-        codex
         ghc
         hasktags
         hindent
         hlint
         hoogle
         hpack
-        hpc_0_6_0_3
         hspec-discover
         pandoc
         shake
         stack
         threadscope
-        xmobar
       ]);
 
   fonts = {
