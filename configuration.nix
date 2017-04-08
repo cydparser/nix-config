@@ -21,10 +21,13 @@
       nu = import (fetchTarball https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz) {};
     in
       (with pkgs; [
+        clang
         cppcheck
         csslint
         ctags
         dmenu
+        emacs
+        git
         gnupg
         gnutls
         graphviz
@@ -48,11 +51,8 @@
         zsh
       ]) ++ (with nu.pkgs; [
         brotli
-        clang
         docker
-        emacs
         firefox
-        git
         nodejs
         torbrowser
       ]) ++ (with nu.haskellPackages; [
