@@ -25,6 +25,7 @@
         cppcheck
         csslint
         ctags
+        diffutils
         dmenu
         emacs
         git
