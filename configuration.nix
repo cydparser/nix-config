@@ -73,6 +73,12 @@
         threadscope
       ]);
 
+  environment = {
+    variables = {
+      NO_AT_BRIDGE = "1";
+    };
+  };
+
   fonts = {
     enableCoreFonts = true;
     enableFontDir = true;
