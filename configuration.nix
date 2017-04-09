@@ -35,7 +35,6 @@
         hunspell
         hunspellDicts.en-us
         jq
-        keychain
         mkpasswd
         nix-repl
         nixops
