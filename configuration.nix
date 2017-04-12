@@ -118,7 +118,15 @@
   };
 
   programs = {
+    bash = {
+      enableCompletion = true;
+    };
     ssh.startAgent = true;
+
+    zsh = {
+      enable = true;
+      enableSyntaxHighlighting = true;
+    };
   };
 
   services = {
