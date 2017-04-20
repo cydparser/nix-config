@@ -45,7 +45,7 @@
         ruby
         silver-searcher
         termite
-        tmux
+        upx
         vim
         z3
         zsh
@@ -122,6 +122,8 @@
       enableCompletion = true;
     };
     ssh.startAgent = true;
+
+    tmux.enable =  true;
 
     zsh = {
       enable = true;
