@@ -65,6 +65,7 @@
         hlint
         hoogle
         hpack
+        hpack-convert
         hspec-discover
         pandoc
         shake
