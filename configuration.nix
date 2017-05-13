@@ -59,6 +59,7 @@
         bench
         cabal-install
         cabal2nix
+        codex
         ghc
         hasktags
         hindent
