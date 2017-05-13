@@ -89,6 +89,7 @@
     };
     fonts = with pkgs; [
       corefonts
+      hasklig
       inconsolata
       source-code-pro
       ubuntu_font_family
