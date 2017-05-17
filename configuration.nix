@@ -92,6 +92,7 @@
       hasklig
       inconsolata
       source-code-pro
+      symbola
       ubuntu_font_family
     ];
   };
