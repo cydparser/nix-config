@@ -39,11 +39,12 @@
         nix-repl
         nixops
         nixpkgs-lint
+        nix-prefetch-git
         openssl
         pinentry
         python35Packages.pylint
+        ripgrep
         ruby
-        silver-searcher
         termite
         upx
         vim
