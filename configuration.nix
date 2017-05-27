@@ -143,7 +143,9 @@
     xserver = {
       autorun = true;
       enable = true;
-      layout = "us";
+      layout = "us,us";
+      xkbVariant = "dvorak,";
+      xkbOptions = "grp:alts_toggle";
 
       desktopManager = {
         default = "none";
