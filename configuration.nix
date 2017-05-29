@@ -36,10 +36,10 @@
         hunspellDicts.en-us
         jq
         mkpasswd
+        nix-prefetch-git
         nix-repl
         nixops
         nixpkgs-lint
-        nix-prefetch-git
         openssl
         pinentry
         python35Packages.pylint
@@ -145,7 +145,7 @@
       enable = true;
       layout = "us,us";
       xkbVariant = "dvorak,";
-      xkbOptions = "grp:alts_toggle";
+      xkbOptions = "grp:shifts_toggle";
 
       desktopManager = {
         default = "none";
