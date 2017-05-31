@@ -18,7 +18,7 @@
 
   environment.systemPackages =
     let
-      nu = import (fetchTarball https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz) {};
+      nu = import <nu> {};
     in
       (with pkgs; [
         clang
