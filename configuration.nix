@@ -38,6 +38,7 @@
         mkpasswd
         nix-prefetch-git
         nix-repl
+        nix-zsh-completions
         nixops
         nixpkgs-lint
         openssl
@@ -45,6 +46,7 @@
         python35Packages.pylint
         ripgrep
         ruby
+        sdcv
         termite
         upx
         vim
