@@ -110,6 +110,10 @@
     };
   };
 
+  i18n = {
+    consoleKeyMap = "dvorak";
+  };
+
   nixpkgs.config = {
     allowUnfree = true;
 
