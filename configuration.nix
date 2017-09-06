@@ -35,14 +35,15 @@
         ctags
         diffutils
         dmenu
+        docker
         emacs
         git
         gnupg
         gnutls
-        graphviz
         hunspell
         hunspellDicts.en-us
         jq
+        lld
         mkpasswd
         nix-prefetch-git
         nix-repl
@@ -60,10 +61,6 @@
         vim
         z3
         zsh
-      ]) ++ (with nu.pkgs; [
-        docker
-        firefox
-        torbrowser
       ]) ++ (with nu.haskellPackages; [
         ShellCheck
         apply-refact
@@ -73,14 +70,10 @@
         codex
         ghc
         hasktags
-        hindent
         hlint
-        hoogle
         hpack
         hspec-discover
-        pandoc
         shake
-        stack
         threadscope
       ]);
 
