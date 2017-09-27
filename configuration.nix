@@ -38,6 +38,7 @@
         docker
         emacs
         git
+        gnumake
         gnupg
         gnutls
         hunspell
