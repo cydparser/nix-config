@@ -147,6 +147,7 @@
     ntp.enable = true;
     openssh.enable = false;
     printing.enable = true;
+    tlp.enable = true;
 
     xserver = {
       autorun = true;
