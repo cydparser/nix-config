@@ -181,7 +181,7 @@
 
   system = {
     # autoUpgrade.enable = true;
-    stateVersion = "17.03";
+    stateVersion = "17.09";
   };
 
   time.timeZone = "US/Pacific";
