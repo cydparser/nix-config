@@ -35,7 +35,6 @@
         ctags
         diffutils
         dmenu
-        docker
         emacs
         git
         gnumake
@@ -188,6 +187,7 @@
 
   virtualisation.docker = {
     enable = true;
+    enableOnBoot = false;
     storageDriver = "devicemapper";
   };
 
