@@ -73,7 +73,6 @@
         hlint
         hpack
         hspec-discover
-        shake
         threadscope
       ]);
 
