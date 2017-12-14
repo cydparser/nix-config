@@ -152,7 +152,7 @@
       enable = true;
       layout = "us,us";
       xkbVariant = "dvorak,";
-      xkbOptions = "caps:ctrl_modifier,grp:shifts_toggle";
+      xkbOptions = "caps:ctrl_modifier,ctrl:ralt_rctrl,grp:shifts_toggle";
 
       desktopManager = {
         default = "none";
