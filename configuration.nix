@@ -24,57 +24,44 @@
       '';
   };
 
-  environment.systemPackages =
-    let
-      nu = import <nu> {};
-    in
-      (with pkgs; [
-        clang
-        cppcheck
-        csslint
-        ctags
-        diffutils
-        dmenu
-        emacs
-        git
-        gnumake
-        gnupg
-        gnutls
-        hunspell
-        hunspellDicts.en-us
-        jq
-        lld
-        mkpasswd
-        nix-prefetch-git
-        nix-repl
-        nix-zsh-completions
-        nixops
-        nixpkgs-lint
-        openssl
-        pinentry
-        python35Packages.pylint
-        ripgrep
-        ruby
-        sdcv
-        termite
-        upx
-        vim
-        z3
-        zsh
-      ]) ++ (with nu.haskellPackages; [
-        ShellCheck
-        apply-refact
-        bench
-        cabal-install
-        cabal2nix
-        codex
-        ghc
-        hasktags
-        hlint
-        hpack
-        hspec-discover
-        threadscope
-      ]);
+  environment.systemPackages = with pkgs; [
+    ctags
+    diffutils
+    dmenu
+    emacs
+    file
+    git
+    gnupg
+    gnutls
+    hunspell
+    jq
+    lld
+    nix-index
+    nix-prefetch-git
+    nix-repl
+    nixpkgs-lint
+    openssl
+    ripgrep
+    sdcv
+    termite
+    tree
+    upx
+    vim
+    wordnet
+    zsh
+  ] ++ (with haskellPackages; [
+    ShellCheck
+    apply-refact
+    bench
+    cabal2nix
+    codex
+    hasktags
+    hlint
+    hpack
+    hspec-discover
+    steeloverseer
+    threadscope
+  ]);
 
   environment.variables = {
     NO_AT_BRIDGE = "1";
