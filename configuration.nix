@@ -31,6 +31,7 @@
     emacs
     file
     git
+    git-lfs
     gnupg
     gnutls
     hunspell
