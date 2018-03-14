@@ -153,15 +153,15 @@
       desktopManager = {
         default = "none";
         xterm.enable = false;
+        xfce.enable = true;
       };
       displayManager = {
+        lightdm = {
+          enable = true;
+        };
         sessionCommands = ''
           xset r rate 300 50
         '';
-        slim = {
-          autoLogin = false;
-          enable = true;
-        };
       };
       windowManager = {
         default = "xmonad";
