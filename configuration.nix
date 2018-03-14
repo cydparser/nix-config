@@ -129,6 +129,14 @@
     };
   };
 
+  security = {
+    pam = {
+      loginLimits = [
+        { domain = "*"; type = "-"; item = "nofile"; value = "65535"; }
+       ];
+    };
+  };
+
   services = {
     ntp.enable = true;
     openssh.enable = false;
