@@ -39,7 +39,6 @@
     lld
     nix-index
     nix-prefetch-git
-    nix-repl
     nixpkgs-lint
     openssl
     ripgrep
@@ -50,23 +49,7 @@
     vim
     wordnet
     zsh
-  ] ++ (with haskellPackages; [
-    ShellCheck
-    apply-refact
-    bench
-    cabal2nix
-    codex
-    hasktags
-    hlint
-    hpack
-    hspec-discover
-    steeloverseer
-    threadscope
-  ]);
-
-  environment.variables = {
-    NO_AT_BRIDGE = "1";
-  };
+  ];
 
   fonts = {
     enableCoreFonts = true;
@@ -176,7 +159,7 @@
 
   system = {
     # autoUpgrade.enable = true;
-    stateVersion = "17.09";
+    stateVersion = "18.09";
   };
 
   time.timeZone = "US/Pacific";
