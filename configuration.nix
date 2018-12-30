@@ -1,66 +1,70 @@
 { config, pkgs, ... }: {
 
-  imports = (builtins.filter builtins.pathExists [
-    ./hardware-configuration.nix
-    ./local.nix
-    ./users.nix
-  ]);
+  imports = [
+    /etc/nixos/hardware-configuration.nix
+    /etc/nixos/secret.nix
+    ./host.nix # Symlink to host/NAME.nix
+  ];
 
   boot = {
     cleanTmpDir = true;
-
-    loader.grub = {
-      device = "/dev/sda";
-      enable = true;
-      version = 2;
-    };
-  };
-
-  environment.etc = {
-    "modprobe.d/hid_apple.conf".text =
-      ''
-        options hid_apple fnmode=2
-        options hid_apple swap_opt_cmd=1
-      '';
+    earlyVconsoleSetup = true;
+    tmpOnTmpfs = true;
   };
 
   environment.systemPackages = with pkgs; [
+    cachix
     ctags
     diffutils
     dmenu
+    dnsutils
     emacs
+    enlightenment.terminology
     file
     git
     git-lfs
     gnupg
     gnutls
-    hunspell
+    htop
     jq
+    lightdm
     lld
     nix-index
     nix-prefetch-git
-    nixpkgs-lint
     openssl
     ripgrep
-    sdcv
     termite
     tree
     upx
+    usbutils
     vim
-    wordnet
+    xorg.xev
+    xorg.xmessage
+    xsel
     zsh
   ];
 
+  fileSystems."/".options = [ "noatime" ];
+
   fonts = {
     enableCoreFonts = true;
+    enableDefaultFonts = true;
     enableFontDir = true;
     enableGhostscriptFonts = true;
 
     fontconfig = {
+      allowBitmaps = false;
+
       defaultFonts = {
         monospace = [ "inconsolata" ];
       };
+
+      ultimate = {
+        enable = true;
+        substitutions = "combi";
+      };
     };
+
     fonts = with pkgs; [
       corefonts
       hasklig
@@ -72,7 +76,7 @@
   };
 
   hardware = {
-    opengl.driSupport32Bit  = true;
+    opengl.driSupport32Bit = true;
 
     pulseaudio = {
       enable = true;
@@ -82,19 +86,30 @@
   };
 
   i18n = {
-    consoleKeyMap = "dvorak";
+    consolePackages = with pkgs.kbdKeymaps; [
+      dvp
+      neo
+      pkgs.terminus_font
+    ];
+
+    consoleUseXkbConfig = true;
+  };
+
+  nix = {
+    binaryCaches = [
+      "https://cache.nixos.org/"
+      "https://cachix.cachix.org"
+      "https://hie-nix.cachix.org"
+    ];
+
+    binaryCachePublicKeys = [
+      "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
+      "hie-nix.cachix.org-1:EjBSHzF6VmDnzqlldGXbi0RM3HdjfTU3yDRi9Pd0jTY="
+    ];
   };
 
   nixpkgs.config = {
     allowUnfree = true;
-
-    firefox = {
-      enableAdobeFlash = true;
-      enableAdobeFlashDRM = true;
-      enableDjvu = true;
-      enableGoogleTalkPlugin = true;
-      icedtea = true;
-    };
     pulseaudio = true;
   };
 
@@ -102,8 +117,9 @@
     bash = {
       enableCompletion = true;
     };
-    ssh.startAgent = true;
 
+    # TODO: gpg agent
+    ssh.startAgent = true;
     tmux.enable =  true;
 
     zsh = {
@@ -121,34 +137,60 @@
   };
 
   services = {
+    fstrim.enable = true;
     ntp.enable = true;
-    openssh.enable = false;
-    printing.enable = true;
-    tlp.enable = true;
+    physlock.enable = true;
 
     xserver = {
       autorun = true;
       enable = true;
+      exportConfiguration = true;
+
+      autoRepeatDelay = 325;
+      autoRepeatInterval = 45;
       layout = "us,us";
-      xkbVariant = "dvorak,";
       xkbOptions = "caps:ctrl_modifier,ctrl:ralt_rctrl,grp:shifts_toggle";
 
       desktopManager = {
         default = "none";
+	      enlightenment.enable = true;
+        lxqt.enable = true;
         xterm.enable = false;
         xfce.enable = true;
       };
+
       displayManager = {
         lightdm = {
           enable = true;
         };
-        sessionCommands = ''
-          xset r rate 300 50
-          xsetroot -cursor_name left_ptr
-        '';
       };
+
+      inputClassSections = [
+        ''
+          Identifier       "All pointers"
+          Driver           "libinput"
+          MatchIsPointer   "on"
+          MatchDevicePath  "/dev/input/event*"
+          Option           "Accel Speed"      "1.0"
+          Option           "NaturalScrolling" "on"
+        ''
+      ];
+
+      libinput = {
+        enable = true;
+        accelSpeed = "1.0";
+        naturalScrolling = true;
+      };
+
+      multitouch = {
+        enable = true;
+        ignorePalm = true;
+        invertScroll = true;
+      };
+
       windowManager = {
         default = "xmonad";
+
         xmonad = {
           enable = true;
           enableContribAndExtras = true;
@@ -158,11 +200,33 @@
   };
 
   system = {
-    # autoUpgrade.enable = true;
     stateVersion = "18.09";
   };
 
   time.timeZone = "US/Pacific";
+
+  users = {
+    defaultUserShell = pkgs.zsh;
+
+    extraUsers = {
+      cyd = {
+        name = "cyd";
+        isNormalUser = true;
+        extraGroups = [
+          "docker"
+          "vboxsf"
+          "wheel"
+        ];
+
+        uid = 1000;
+        # Place secrets in /etc/nixos/secret.nix:
+        #   hashedPassword = ""; # mkpasswd -m sha-512
+        #   openssh.authorizedKeys.keys = [];
+      };
+    };
+
+    mutableUsers = true;
+  };
 
   virtualisation.docker = {
     enable = true;
