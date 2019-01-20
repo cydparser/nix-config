@@ -96,15 +96,9 @@
   };
 
   nix = {
-    binaryCaches = [
-      "https://cache.nixos.org/"
-      "https://cachix.cachix.org"
-      "https://hie-nix.cachix.org"
-    ];
-
-    binaryCachePublicKeys = [
-      "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
-      "hie-nix.cachix.org-1:EjBSHzF6VmDnzqlldGXbi0RM3HdjfTU3yDRi9Pd0jTY="
+    trustedUsers = [
+      "cyd"
+      "root"
     ];
   };
 
