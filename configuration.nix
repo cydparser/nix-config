@@ -31,10 +31,14 @@
     lld
     nix-index
     nix-prefetch-git
+    nix-prefetch-github
     openssl
     ripgrep
+    scrot
+    s-tui
     termite
     tree
+    unzip
     upx
     usbutils
     vim
