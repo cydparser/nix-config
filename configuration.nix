@@ -9,6 +9,7 @@
   boot = {
     cleanTmpDir = true;
     earlyVconsoleSetup = true;
+    supportedFilesystems = [ "ecryptfs" ];
     tmpOnTmpfs = true;
   };
 
@@ -18,6 +19,8 @@
     diffutils
     dmenu
     dnsutils
+    ecryptfs
+    ecryptfs-helper
     emacs
     enlightenment.terminology
     file

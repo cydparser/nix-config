@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ _config, pkgs, ... }: {
 
   boot = {
     loader = {
@@ -29,6 +29,8 @@
     hostName = "tpad";
     wireless.enable = true;
   };
+
+  security.pam.enableEcryptfs = true;
 
   services = {
     xserver = {
