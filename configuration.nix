@@ -102,6 +102,8 @@
     consoleUseXkbConfig = true;
   };
 
+  networking.firewall.allowPing = false;
+
   nix = {
     trustedUsers = [
       "cyd"
