@@ -203,7 +203,7 @@
   };
 
   system = {
-    stateVersion = "18.09";
+    stateVersion = "19.03";
   };
 
   time.timeZone = "US/Pacific";
