@@ -33,6 +33,10 @@
   security.pam.enableEcryptfs = true;
 
   services = {
+    clamav = {
+      daemon.enable = true;
+    };
+
     xserver = {
       dpi = 153;
       videoDrivers = [ "nvidia" ];
