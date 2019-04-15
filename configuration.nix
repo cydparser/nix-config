@@ -32,6 +32,7 @@
     jq
     lightdm
     lld
+    lsof
     nix-index
     nix-prefetch-git
     nix-prefetch-github
