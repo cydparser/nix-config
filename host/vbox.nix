@@ -20,6 +20,8 @@
     hostName = "vbox";
   };
 
+  security.pam.enableEcryptfs = true;
+
   services = {
     xserver = {
       xkbVariant = "dvorak,"; # TODO
