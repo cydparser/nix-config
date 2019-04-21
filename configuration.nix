@@ -22,7 +22,6 @@
     ecryptfs
     ecryptfs-helper
     emacs
-    enlightenment.terminology
     file
     git
     git-lfs
@@ -157,8 +156,6 @@
 
       desktopManager = {
         default = "none";
-	      enlightenment.enable = true;
-        lxqt.enable = true;
         xterm.enable = false;
         xfce.enable = true;
       };
