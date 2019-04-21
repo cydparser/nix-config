@@ -17,6 +17,7 @@
     cachix
     ctags
     diffutils
+    direnv
     dmenu
     dnsutils
     ecryptfs
