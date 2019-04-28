@@ -214,9 +214,6 @@
         ];
 
         uid = 1000;
-        # Place secrets in /etc/nixos/secret.nix:
-        #   hashedPassword = ""; # mkpasswd -m sha-512
-        #   openssh.authorizedKeys.keys = [];
       };
     };
 
