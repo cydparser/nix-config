@@ -62,15 +62,8 @@
 
     fontconfig = {
       allowBitmaps = false;
-
-      defaultFonts = {
-        monospace = [ "inconsolata" ];
-      };
-
-      ultimate = {
-        enable = true;
-        substitutions = "combi";
-      };
+      subpixel.lcdfilter = "none";
+      subpixel.rgba = "none";
     };
 
     fonts = with pkgs; [

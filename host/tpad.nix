@@ -12,15 +12,6 @@
     s-tui
   ];
 
-  fonts = {
-    fontconfig = {
-      antialias = true;
-      dpi = 153; # = (+ 102 (/ 102 2))
-      hinting.enable = false;
-      subpixel.lcdfilter = "none";
-    };
-  };
-
   i18n = {
     consoleFont = "ter-232n";
   };
@@ -38,7 +29,6 @@
     };
 
     xserver = {
-      dpi = 153;
       videoDrivers = [ "nvidia" ];
       xkbVariant = ",dvorak"; # TODO
     };
