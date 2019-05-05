@@ -62,7 +62,6 @@
 
     fontconfig = {
       allowBitmaps = false;
-      subpixel.lcdfilter = "none";
       subpixel.rgba = "none";
     };
 

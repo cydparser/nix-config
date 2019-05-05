@@ -1,4 +1,6 @@
-{ _config, pkgs, ... }: {
+let
+  dpi = 153;
+in { pkgs, ... }: {
 
   boot = {
     loader = {
@@ -11,6 +13,12 @@
     lm_sensors
     s-tui
   ];
+
+  fonts = {
+    fontconfig = {
+      dpi = dpi;
+    };
+  };
 
   i18n = {
     consoleFont = "ter-232n";
@@ -29,6 +37,7 @@
     };
 
     xserver = {
+      dpi = dpi;
       videoDrivers = [ "nvidia" ];
       xkbVariant = ",dvorak"; # TODO
     };
