@@ -69,6 +69,7 @@
       corefonts
       hasklig
       inconsolata
+      lmodern
       source-code-pro
       symbola
       ubuntu_font_family
