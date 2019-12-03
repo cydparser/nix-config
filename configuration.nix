@@ -27,7 +27,6 @@
     git
     git-lfs
     gnupg
-    gnutls
     htop
     jq
     lightdm
@@ -36,7 +35,6 @@
     nix-index
     nix-prefetch-git
     nix-prefetch-github
-    openssl
     ripgrep
     scrot
     s-tui
