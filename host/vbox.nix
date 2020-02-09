@@ -16,11 +16,19 @@
       '';
   };
 
+  fileSystems."/vbox" = {
+    fsType = "vboxsf";
+    device = "stuff";
+    options = [ "rw" "nofail" ];
+  };
+
   networking = {
     hostName = "vbox";
   };
 
   security.pam.enableEcryptfs = true;
+
+  security.rngd.enable = false;
 
   services = {
     xserver = {
