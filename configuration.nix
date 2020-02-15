@@ -133,6 +133,7 @@
 
   services = {
     fstrim.enable = true;
+    lorri.enable = true;
     ntp.enable = true;
     physlock.enable = true;
 
