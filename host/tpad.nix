@@ -42,6 +42,29 @@ in { pkgs, ... }: {
       dpi = dpi;
       videoDrivers = [ "nvidia" ];
       xkbVariant = ",dvorak"; # TODO
+
+      inputClassSections = [
+        ''
+          Identifier       "All pointers"
+          Driver           "libinput"
+          MatchIsPointer   "on"
+          MatchDevicePath  "/dev/input/event*"
+          Option           "Accel Speed"      "1.0"
+          Option           "NaturalScrolling" "on"
+        ''
+      ];
+
+      libinput = {
+        enable = true;
+        accelSpeed = "1.0";
+        naturalScrolling = true;
+      };
+
+      multitouch = {
+        enable = true;
+        ignorePalm = true;
+        invertScroll = true;
+      };
     };
   };
 
