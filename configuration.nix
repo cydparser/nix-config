@@ -145,6 +145,7 @@
       autoRepeatDelay = 325;
       autoRepeatInterval = 45;
       layout = "us,us";
+      # NB: Pressing both shifts is not the same as `setxkbmap us`.
       xkbOptions = "caps:ctrl_modifier,ctrl:ralt_rctrl,grp:shifts_toggle";
 
       desktopManager = {

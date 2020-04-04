@@ -11,8 +11,12 @@ in { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
     brightnessctl
+    docker-compose
+    jetbrains.idea-community
     lm_sensors
     s-tui
+    slack
+    zoom-us
   ];
 
   fonts = {
@@ -41,7 +45,7 @@ in { pkgs, ... }: {
     xserver = {
       dpi = dpi;
       videoDrivers = [ "nvidia" ];
-      xkbVariant = ",dvorak"; # TODO
+      xkbVariant = "dvorak,";
 
       inputClassSections = [
         ''
