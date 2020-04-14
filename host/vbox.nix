@@ -32,7 +32,7 @@
 
   services = {
     xserver = {
-      xkbVariant = ",dvorak";
+      xkbVariant = "dvorak,";
     };
   };
 
