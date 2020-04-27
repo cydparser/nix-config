@@ -8,9 +8,20 @@
 
   boot = {
     cleanTmpDir = true;
-    earlyVconsoleSetup = true;
     supportedFilesystems = [ "ecryptfs" ];
     tmpOnTmpfs = true;
+  };
+
+  console = {
+    earlySetup = true;
+
+    packages = with pkgs.kbdKeymaps; [
+      dvp
+      neo
+      pkgs.terminus_font
+    ];
+
+    useXkbConfig = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -53,7 +64,6 @@
   fileSystems."/".options = [ "noatime" ];
 
   fonts = {
-    enableCoreFonts = true;
     enableDefaultFonts = true;
     enableFontDir = true;
     enableGhostscriptFonts = true;
@@ -82,16 +92,6 @@
       package = pkgs.pulseaudioFull;
       support32Bit = true;
     };
-  };
-
-  i18n = {
-    consolePackages = with pkgs.kbdKeymaps; [
-      dvp
-      neo
-      pkgs.terminus_font
-    ];
-
-    consoleUseXkbConfig = true;
   };
 
   networking.firewall.allowPing = false;
@@ -149,20 +149,18 @@
       xkbOptions = "caps:ctrl_modifier,ctrl:ralt_rctrl,grp:shifts_toggle";
 
       desktopManager = {
-        default = "none";
         xterm.enable = false;
-        xfce.enable = true;
       };
 
       displayManager = {
+        defaultSession = "none+xmonad";
+
         lightdm = {
           enable = true;
         };
       };
 
       windowManager = {
-        default = "xmonad";
-
         xmonad = {
           enable = true;
           enableContribAndExtras = true;
@@ -172,7 +170,7 @@
   };
 
   system = {
-    stateVersion = "19.09";
+    stateVersion = "20.03";
   };
 
   time.timeZone = "US/Pacific";

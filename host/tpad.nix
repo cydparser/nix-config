@@ -9,6 +9,10 @@ in { pkgs, ... }: {
     };
   };
 
+  console = {
+    font = "ter-232n";
+  };
+
   environment.systemPackages = with pkgs; [
     brightnessctl
     docker-compose
@@ -23,10 +27,6 @@ in { pkgs, ... }: {
     fontconfig = {
       dpi = dpi;
     };
-  };
-
-  i18n = {
-    consoleFont = "ter-232n";
   };
 
   networking = {
@@ -61,14 +61,10 @@ in { pkgs, ... }: {
       libinput = {
         enable = true;
         accelSpeed = "1.0";
+        disableWhileTyping = true;
         naturalScrolling = true;
       };
 
-      multitouch = {
-        enable = true;
-        ignorePalm = true;
-        invertScroll = true;
-      };
     };
   };
 
