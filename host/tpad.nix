@@ -47,16 +47,6 @@ in { pkgs, ... }: {
       videoDrivers = [ "nvidia" ];
       xkbVariant = "dvorak,";
 
-      inputClassSections = [
-        ''
-          Identifier       "All pointers"
-          Driver           "libinput"
-          MatchIsPointer   "on"
-          MatchDevicePath  "/dev/input/event*"
-          Option           "Accel Speed"      "1.0"
-          Option           "NaturalScrolling" "on"
-        ''
-      ];
 
       libinput = {
         enable = true;
