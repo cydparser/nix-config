@@ -97,6 +97,12 @@
   networking.firewall.allowPing = false;
 
   nix = {
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+
+    package = pkgs.nixFlakes;
+
     trustedUsers = [
       "cyd"
       "root"
