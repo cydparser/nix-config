@@ -14,6 +14,7 @@ in { pkgs, ... }: {
   };
 
   environment.systemPackages = with pkgs; [
+    androidStudioPackages.dev
     brightnessctl
     docker-compose
     jetbrains.idea-community
@@ -56,6 +57,13 @@ in { pkgs, ... }: {
       };
 
     };
+  };
+
+  virtualisation.libvirtd = {
+    enable = true;
+    onBoot = "ignore";
+    onShutdown = "suspend";
+    qemuPackage = pkgs.qemu_kvm;
   };
 
 }

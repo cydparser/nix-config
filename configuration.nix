@@ -133,7 +133,7 @@
     pam = {
       loginLimits = [
         { domain = "*"; type = "-"; item = "nofile"; value = "65535"; }
-       ];
+      ];
     };
   };
 
@@ -190,6 +190,7 @@
         isNormalUser = true;
         extraGroups = [
           "docker"
+          "libvirtd"
           "vboxsf"
           "wheel"
         ];
