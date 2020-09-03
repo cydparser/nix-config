@@ -74,13 +74,8 @@
     };
 
     fonts = with pkgs; [
-      corefonts
-      hasklig
+      cascadia-code
       inconsolata
-      lmodern
-      source-code-pro
-      symbola
-      ubuntu_font_family
     ];
   };
 
