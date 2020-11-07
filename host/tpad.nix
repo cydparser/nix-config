@@ -30,6 +30,10 @@ in { pkgs, ... }: {
     };
   };
 
+  hardware = {
+    bluetooth.enable = true;
+  };
+
   networking = {
     hostName = "tpad";
     wireless.enable = true;
