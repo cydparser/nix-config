@@ -42,6 +42,8 @@ in { pkgs, ... }: {
   security.pam.enableEcryptfs = true;
 
   services = {
+    blueman.enable = true;
+
     clamav = {
       daemon.enable = true;
       updater.enable = true;
