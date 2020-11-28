@@ -37,6 +37,7 @@
     file
     git
     git-lfs
+    gitAndTools.delta
     gnupg
     htop
     jq
