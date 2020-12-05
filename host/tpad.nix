@@ -15,10 +15,12 @@ in { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
     androidStudioPackages.dev
+    bat
     brightnessctl
     docker-compose
     jetbrains.idea-community
     lm_sensors
+    pavucontrol
     s-tui
     slack
     zoom-us
