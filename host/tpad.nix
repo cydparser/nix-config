@@ -33,7 +33,26 @@ in { pkgs, ... }: {
   };
 
   hardware = {
-    bluetooth.enable = true;
+    bluetooth = {
+      enable = true;
+      package = pkgs.bluezFull;
+
+      config = {
+        General = {
+          # Enable A2DP sink
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
+
+    pulseaudio = {
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      package = pkgs.pulseaudioFull;
+
+      extraConfig = "
+        load-module module-switch-on-connect
+      ";
+    };
   };
 
   networking = {
