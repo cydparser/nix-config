@@ -3,6 +3,11 @@ let
 in { pkgs, ... }: {
 
   boot = {
+    blacklistedKernelModules = [
+      # Webcam video
+      "uvcvideo"
+    ];
+
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
