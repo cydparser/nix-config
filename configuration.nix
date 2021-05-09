@@ -196,9 +196,16 @@
         name = "cyd";
         isNormalUser = true;
         extraGroups = [
+          "audio"
+          "cdrom"
           "docker"
+          "floppy"
+          "input"
           "libvirtd"
+          "lp"
+          "systemd-journal"
           "vboxsf"
+          "video"
           "wheel"
         ];
 
