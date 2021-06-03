@@ -28,8 +28,6 @@
     earlySetup = true;
 
     packages = with pkgs.kbdKeymaps; [
-      dvp
-      neo
       pkgs.terminus_font
     ];
 
@@ -37,29 +35,18 @@
   };
 
   environment.systemPackages = with pkgs; [
-    cachix
-    ctags
-    diffutils
-    direnv
     dmenu
     dnsutils
     ecryptfs
     ecryptfs-helper
-    emacs
     file
     git
-    git-lfs
-    gitAndTools.delta
+    gnome.seahorse # gnome-keyring GUI
     gnupg
     htop
-    jq
     lightdm
-    lld
     lsof
     nix-index
-    nix-prefetch-git
-    nix-prefetch-github
-    ripgrep
     scrot
     s-tui
     termite
@@ -74,11 +61,16 @@
     zsh
   ];
 
+  environment.variables = {
+    EDITOR = "emacs";
+    VISUAL = "emacs";
+  };
+
   fileSystems."/".options = [ "noatime" ];
 
   fonts = {
     enableDefaultFonts = true;
-    enableFontDir = true;
+    fontDir.enable = true;
     enableGhostscriptFonts = true;
 
     fontconfig = {
@@ -146,7 +138,7 @@
 
   services = {
     fstrim.enable = true;
-    lorri.enable = true;
+    gnome.gnome-keyring.enable = true;
     ntp.enable = true;
     physlock.enable = true;
 
@@ -173,6 +165,20 @@
         };
       };
 
+      libinput = {
+        enable = true;
+
+        mouse = {
+          naturalScrolling = true;
+        };
+
+        touchpad = {
+          accelSpeed = "1.0";
+          disableWhileTyping = true;
+          naturalScrolling = true;
+        };
+      };
+
       windowManager = {
         xmonad = {
           enable = true;
@@ -180,10 +186,6 @@
         };
       };
     };
-  };
-
-  system = {
-    stateVersion = "20.09";
   };
 
   time.timeZone = "US/Pacific";

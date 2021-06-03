@@ -20,13 +20,12 @@ in { pkgs, ... }: {
 
   environment.systemPackages = with pkgs; [
     androidStudioPackages.dev
-    bat
     brightnessctl
     docker-compose
     jetbrains.idea-community
     lm_sensors
     pavucontrol
-    s-tui
+    postman
     slack
     zoom-us
   ];
@@ -42,7 +41,7 @@ in { pkgs, ... }: {
       enable = true;
       package = pkgs.bluezFull;
 
-      config = {
+      settings = {
         General = {
           # Enable A2DP sink
           Enable = "Source,Sink,Media,Socket";
@@ -83,14 +82,6 @@ in { pkgs, ... }: {
       desktopManager = {
         enlightenment.enable = true;
       };
-
-      libinput = {
-        enable = true;
-        accelSpeed = "1.0";
-        disableWhileTyping = true;
-        naturalScrolling = true;
-      };
-
     };
   };
 
