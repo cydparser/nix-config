@@ -79,7 +79,6 @@
     };
 
     fonts = with pkgs; [
-      cascadia-code
       inconsolata
     ];
   };
