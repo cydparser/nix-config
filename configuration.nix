@@ -62,8 +62,8 @@
   ];
 
   environment.variables = {
-    EDITOR = "emacs";
-    VISUAL = "emacs";
+    EDITOR = "vim";
+    VISUAL = "vim";
   };
 
   fileSystems."/".options = [ "noatime" ];
