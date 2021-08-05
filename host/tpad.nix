@@ -19,15 +19,10 @@ in { pkgs, ... }: {
   };
 
   environment.systemPackages = with pkgs; [
-    androidStudioPackages.dev
     brightnessctl
     docker-compose
-    jetbrains.idea-community
     lm_sensors
     pavucontrol
-    postman
-    slack
-    zoom-us
   ];
 
   fonts = {
