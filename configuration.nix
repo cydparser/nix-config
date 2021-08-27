@@ -199,6 +199,7 @@
         extraGroups = [
           "audio"
           "cdrom"
+          "clamav"
           "docker"
           "floppy"
           "input"
