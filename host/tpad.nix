@@ -57,6 +57,7 @@ in { pkgs, ... }: {
   networking = {
     hostName = "tpad";
     wireless.enable = true;
+    wireless.interfaces = [ "wlp4s0" ];
   };
 
   security.pam.enableEcryptfs = true;
