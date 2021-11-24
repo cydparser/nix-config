@@ -33,7 +33,7 @@ in { pkgs, ... }: {
 
   hardware = {
     bluetooth = {
-      enable = true;
+      # enable = true;
       package = pkgs.bluezFull;
 
       settings = {
@@ -62,7 +62,7 @@ in { pkgs, ... }: {
   security.pam.enableEcryptfs = true;
 
   services = {
-    blueman.enable = true;
+    # blueman.enable = true;
 
     clamav = {
       daemon.enable = true;
