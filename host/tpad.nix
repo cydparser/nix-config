@@ -25,12 +25,6 @@ in { pkgs, ... }: {
     pavucontrol
   ];
 
-  fonts = {
-    fontconfig = {
-      dpi = dpi;
-    };
-  };
-
   hardware = {
     bluetooth = {
       # enable = true;
