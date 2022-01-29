@@ -79,7 +79,7 @@ in { pkgs, ... }: {
     enable = true;
     onBoot = "ignore";
     onShutdown = "suspend";
-    qemuPackage = pkgs.qemu_kvm;
+    qemu.package = pkgs.qemu_kvm;
   };
 
 }
