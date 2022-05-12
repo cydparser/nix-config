@@ -187,6 +187,14 @@
     };
   };
 
+  systemd = {
+    user = {
+      extraConfig = ''
+        DefaultLimitNOFILE=524288
+      '';
+    };
+  };
+
   time.timeZone = "US/Pacific";
 
   users = {
