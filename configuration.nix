@@ -130,7 +130,7 @@
   security = {
     pam = {
       loginLimits = [
-        { domain = "*"; type = "-"; item = "nofile"; value = "65535"; }
+        { domain = "*"; type = "-"; item = "nofile"; value = "524288"; }
       ];
     };
   };
@@ -184,14 +184,6 @@
           enableContribAndExtras = true;
         };
       };
-    };
-  };
-
-  systemd = {
-    user = {
-      extraConfig = ''
-        DefaultLimitNOFILE=524288
-      '';
     };
   };
 
