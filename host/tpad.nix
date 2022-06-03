@@ -39,7 +39,6 @@ in { pkgs, ... }: {
     };
 
     pulseaudio = {
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
       package = pkgs.pulseaudioFull;
 
       extraConfig = "
@@ -73,6 +72,10 @@ in { pkgs, ... }: {
         enlightenment.enable = true;
       };
     };
+  };
+
+  system = {
+    stateVersion = "21.11";
   };
 
   virtualisation.libvirtd = {

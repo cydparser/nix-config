@@ -99,8 +99,6 @@
       experimental-features = nix-command flakes
     '';
 
-    package = pkgs.nixFlakes;
-
     trustedUsers = [
       "cyd"
       "root"
@@ -116,6 +114,8 @@
     bash = {
       enableCompletion = true;
     };
+
+    nix-ld.enable = true;
 
     # TODO: gpg agent
     ssh.startAgent = true;
