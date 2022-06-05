@@ -48,6 +48,7 @@
     lightdm
     lsof
     nix-index
+    nushell
     scrot
     s-tui
     termite
