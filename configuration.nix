@@ -43,6 +43,7 @@
     git
     gnome.seahorse # gnome-keyring GUI
     gnupg
+    groff
     htop
     lightdm
     lsof
