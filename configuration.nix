@@ -50,6 +50,7 @@
     lsof
     nix-index
     nushell
+    openssl
     scrot
     s-tui
     termite
