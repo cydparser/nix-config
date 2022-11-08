@@ -142,6 +142,11 @@
   };
 
   services = {
+    dictd = {
+      enable = true;
+      DBs = with pkgs.dictdDBs; [ wiktionary wordnet ];
+    };
+
     fstrim.enable = true;
     gnome.gnome-keyring.enable = true;
     ntp.enable = true;
