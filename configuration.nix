@@ -103,7 +103,13 @@
       experimental-features = nix-command flakes
       keep-derivations = true
       keep-outputs = true
+      min-free = ${toString (2048 * 1024 * 1024)}
+      max-free = ${toString (8192 * 1024 * 1024)}
     '';
+
+    settings = {
+      auto-optimise-store = true;
+    };
 
     trustedUsers = [
       "cyd"
