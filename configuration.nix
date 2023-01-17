@@ -111,12 +111,12 @@
 
       min-free = 2048 * 1024 * 1024;
       max-free = 8192 * 1024 * 1024;
-    };
 
-    trustedUsers = [
-      "cyd"
-      "root"
-    ];
+      trusted-users = [
+        "cyd"
+        "root"
+      ];
+    };
   };
 
   nixpkgs.config = {
