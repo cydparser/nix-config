@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   imports = [
     /etc/nixos/hardware-configuration.nix
     /etc/nixos/secret.nix
@@ -8,7 +7,7 @@
 
   boot = {
     cleanTmpDir = true;
-    supportedFilesystems = [ "ecryptfs" ];
+    supportedFilesystems = ["ecryptfs"];
     tmpOnTmpfs = true;
 
     # Copied from virtualisation.lxd.recommendedSysctlSettings
@@ -70,7 +69,7 @@
     VISUAL = "vim";
   };
 
-  fileSystems."/".options = [ "noatime" ];
+  fileSystems."/".options = ["noatime"];
 
   fonts = {
     enableDefaultFonts = true;
@@ -133,7 +132,7 @@
 
     # TODO: gpg agent
     ssh.startAgent = true;
-    tmux.enable =  true;
+    tmux.enable = true;
 
     zsh = {
       enable = true;
@@ -144,7 +143,12 @@
   security = {
     pam = {
       loginLimits = [
-        { domain = "*"; type = "-"; item = "nofile"; value = "524288"; }
+        {
+          domain = "*";
+          type = "-";
+          item = "nofile";
+          value = "524288";
+        }
       ];
     };
   };
@@ -152,7 +156,7 @@
   services = {
     dictd = {
       enable = true;
-      DBs = with pkgs.dictdDBs; [ wiktionary wordnet ];
+      DBs = with pkgs.dictdDBs; [wiktionary wordnet];
     };
 
     fstrim.enable = true;
@@ -242,5 +246,4 @@
     enableOnBoot = false;
     storageDriver = "devicemapper";
   };
-
 }
