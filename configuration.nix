@@ -244,6 +244,5 @@
   virtualisation.docker = {
     enable = true;
     enableOnBoot = false;
-    storageDriver = "devicemapper";
   };
 }
