@@ -67,10 +67,6 @@ in
         dpi = dpi;
         videoDrivers = ["nvidia"];
         xkbVariant = "dvorak,";
-
-        desktopManager = {
-          enlightenment.enable = true;
-        };
       };
     };
 

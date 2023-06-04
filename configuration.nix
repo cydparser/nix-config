@@ -6,9 +6,7 @@
   ];
 
   boot = {
-    cleanTmpDir = true;
     supportedFilesystems = ["ecryptfs"];
-    tmpOnTmpfs = true;
 
     # Copied from virtualisation.lxd.recommendedSysctlSettings
     kernel.sysctl = {
@@ -21,12 +19,17 @@
       "net.ipv6.neigh.default.gc_thresh3" = 8192;
       "kernel.keys.maxkeys" = 2000;
     };
+
+    tmp = {
+      cleanOnBoot = true;
+      useTmpfs = true;
+    };
   };
 
   console = {
     earlySetup = true;
 
-    packages = with pkgs.kbdKeymaps; [
+    packages = [
       pkgs.terminus_font
     ];
 
@@ -37,21 +40,18 @@
     dmenu
     dnsutils
     ecryptfs
-    ecryptfs-helper
     file
     git
     gnome.seahorse # gnome-keyring GUI
     gnupg
     gnutls
     groff
-    htop
     lightdm
     lsof
     nix-index
     nushell
     openssl
     scrot
-    s-tui
     termite
     tree
     unzip
@@ -98,12 +98,13 @@
   networking.firewall.allowPing = false;
 
   nix = {
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-
     settings = {
       auto-optimise-store = true;
+
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
       keep-derivations = true;
       keep-outputs = true;
