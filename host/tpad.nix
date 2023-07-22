@@ -20,7 +20,6 @@ in
 
     environment.systemPackages = with pkgs; [
       brightnessctl
-      docker-compose
       lm_sensors
       pavucontrol
     ];
