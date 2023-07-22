@@ -49,7 +49,6 @@
     lightdm
     lsof
     nix-index
-    nushell
     openssl
     scrot
     termite
