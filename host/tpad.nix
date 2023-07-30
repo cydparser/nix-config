@@ -21,6 +21,7 @@ in
     environment.systemPackages = with pkgs; [
       brightnessctl
       lm_sensors
+      ntfs3g
       pavucontrol
     ];
 
