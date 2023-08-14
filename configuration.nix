@@ -8,8 +8,8 @@
   boot = {
     supportedFilesystems = ["ecryptfs"];
 
-    # Copied from virtualisation.lxd.recommendedSysctlSettings
     kernel.sysctl = {
+      # Copied from virtualisation.lxd.recommendedSysctlSettings
       "fs.inotify.max_queued_events" = 1048576;
       "fs.inotify.max_user_instances" = 1048576;
       "fs.inotify.max_user_watches" = 1048576;
@@ -18,6 +18,13 @@
       "net.ipv4.neigh.default.gc_thresh3" = 8192;
       "net.ipv6.neigh.default.gc_thresh3" = 8192;
       "kernel.keys.maxkeys" = 2000;
+
+      "kernel.sysrq" = builtins.foldl' builtins.bitOr 0 [
+        2 # console logging
+        8 # dumps
+        16 # sync
+        128 # reboot/poweroff
+      ];
     };
 
     tmp = {
