@@ -46,7 +46,6 @@
     gnupg
     gnutls
     groff
-    lightdm
     lsof
     nix-index
     openssl
