@@ -130,10 +130,6 @@
   };
 
   programs = {
-    bash = {
-      enableCompletion = true;
-    };
-
     nix-ld.enable = true;
 
     # TODO: gpg agent
