@@ -77,7 +77,7 @@
   fileSystems."/".options = ["noatime"];
 
   fonts = {
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
     fontDir.enable = true;
     enableGhostscriptFonts = true;
 
@@ -86,7 +86,7 @@
       subpixel.rgba = "none";
     };
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       inconsolata
     ];
   };
