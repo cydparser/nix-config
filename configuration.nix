@@ -1,10 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    /etc/nixos/hardware-configuration.nix
-    /etc/nixos/secret.nix
-    ./host.nix # Symlink to host/NAME.nix
-  ];
-
   boot = {
     supportedFilesystems = ["ecryptfs"];
 
