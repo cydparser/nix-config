@@ -118,11 +118,6 @@
     };
   };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    pulseaudio = true;
-  };
-
   programs = {
     nix-ld.enable = true;
 
