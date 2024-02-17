@@ -119,6 +119,9 @@
   };
 
   programs = {
+    nano.enable = false;
+    vim.defaultEditor = true;
+
     nix-ld.enable = true;
 
     # TODO: gpg agent
