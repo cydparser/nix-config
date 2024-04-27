@@ -97,6 +97,8 @@
   networking.firewall.allowPing = false;
 
   nix = {
+    package = pkgs.nixUnstable;
+
     settings = {
       auto-optimise-store = true;
 
