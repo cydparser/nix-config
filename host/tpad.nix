@@ -66,7 +66,7 @@ in
       xserver = {
         dpi = dpi;
         videoDrivers = ["nvidia"];
-        xkbVariant = "dvorak,";
+        xkb.variant = "dvorak,";
 
         desktopManager = {
           enlightenment.enable = true;

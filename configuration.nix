@@ -97,7 +97,7 @@
   networking.firewall.allowPing = false;
 
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixVersions.latest;
 
     settings = {
       auto-optimise-store = true;
@@ -156,8 +156,24 @@
       DBs = with pkgs.dictdDBs; [wiktionary wordnet];
     };
 
+    displayManager.defaultSession = "none+xmonad";
     fstrim.enable = true;
     gnome.gnome-keyring.enable = true;
+
+    libinput = {
+      enable = true;
+
+      mouse = {
+        naturalScrolling = true;
+      };
+
+      touchpad = {
+        accelSpeed = "1.0";
+        disableWhileTyping = true;
+        naturalScrolling = true;
+      };
+    };
+
     ntp.enable = true;
     physlock.enable = true;
 
@@ -168,33 +184,17 @@
 
       autoRepeatDelay = 325;
       autoRepeatInterval = 45;
-      layout = "us,us";
+      xkb.layout = "us,us";
       # NB: Pressing both shifts is not the same as `setxkbmap us`.
-      xkbOptions = "caps:ctrl_modifier,ctrl:ralt_rctrl,grp:shifts_toggle";
+      xkb.options = "caps:ctrl_modifier,ctrl:ralt_rctrl,grp:shifts_toggle";
 
       desktopManager = {
         xterm.enable = false;
       };
 
       displayManager = {
-        defaultSession = "none+xmonad";
-
         lightdm = {
           enable = true;
-        };
-      };
-
-      libinput = {
-        enable = true;
-
-        mouse = {
-          naturalScrolling = true;
-        };
-
-        touchpad = {
-          accelSpeed = "1.0";
-          disableWhileTyping = true;
-          naturalScrolling = true;
         };
       };
 
