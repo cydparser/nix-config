@@ -123,10 +123,6 @@
   programs = {
     nano.enable = false;
     vim.defaultEditor = true;
-
-    nix-ld.enable = true;
-    nix-ld.package = pkgs.nix-ld-rs;
-
     # TODO: gpg agent
     ssh.startAgent = true;
     tmux.enable = true;
