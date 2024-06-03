@@ -37,6 +37,7 @@ in
           };
         };
       };
+      nvidia-container-toolkit.enable = true;
 
       pulseaudio = {
         package = pkgs.pulseaudioFull;
