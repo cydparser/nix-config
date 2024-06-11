@@ -8,6 +8,8 @@ in
         "uvcvideo"
       ];
 
+      kernelParams = ["mem_sleep_default=deep"];
+
       loader = {
         efi.canTouchEfiVariables = true;
         systemd-boot.enable = true;
