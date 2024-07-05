@@ -10,11 +10,8 @@
       };
     };
 
-    nixd.url = "github:nix-community/nixd";
-
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    pinix.url = "github:remi-dupre/pinix";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -43,8 +40,7 @@
               overlays = [
                 dotfiles.overlays.default
                 (_final: _prev: {
-                  nixd = inputs.nixd.packages.${system}.nixd;
-                  pinix = inputs.pinix.packages.${system}.pinix;
+                  # nixd = inputs.nixd.packages.${system}.nixd;
                 })
               ];
             }
