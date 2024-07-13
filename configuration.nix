@@ -47,7 +47,6 @@
     gnutls
     groff
     lsof
-    nix-index
     openssl
     seahorse # gnome-keyring GUI
     scrot
