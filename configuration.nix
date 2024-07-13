@@ -43,13 +43,13 @@
     ecryptfs
     file
     git
-    gnome.seahorse # gnome-keyring GUI
     gnupg
     gnutls
     groff
     lsof
     nix-index
     openssl
+    seahorse # gnome-keyring GUI
     scrot
     termite
     tree
@@ -86,7 +86,7 @@
   };
 
   hardware = {
-    opengl.driSupport32Bit = true;
+    graphics.enable32Bit = true;
 
     pulseaudio = {
       enable = true;
