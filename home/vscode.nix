@@ -9,17 +9,13 @@ let
   utils = import ./utils.nix inputs;
 in
 {
-  options.nix-config.vscode =
-    let
-      inherit (lib) mkEnableOption;
-    in
-    {
-      enable = utils.mkEnable "vscode";
+  options.nix-config.vscode = {
+    enable = utils.mkEnable "vscode";
 
-      server = mkEnableOption "vscode-server" // {
-        default = utils.isWsl osConfig;
-      };
+    server = lib.mkEnableOption "vscode-server" // {
+      default = utils.isWsl osConfig;
     };
+  };
 
   config =
     let
