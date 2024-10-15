@@ -1,0 +1,33 @@
+[options]
+font = Inconsolata
+
+# Ashes (dark)
+[colors]
+foreground      = #c7ccd1
+foreground_bold = #f8f8ff
+cursor          = #c7ccd1
+background      = #292929
+# black
+color0  = #1c2023
+color8  = #747c84
+# red
+color1  = #c7ae95
+color9  = #a78e85
+# green
+color2  = #95c7ae
+color10 = #75a79e
+# yellow
+color3  = #aec795
+color11 = #8ea785
+# blue
+color4  = #ae95c7
+color12 = #8e75b7
+# magenta
+color5  = #c795ae
+color13 = #a7759e
+# cyan
+color6  = #95aec7
+color14 = #758ea7
+# white
+color7  = #c7ccd1
+color15 = #f3f4f5

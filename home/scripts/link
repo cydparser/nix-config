@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+#
+# Creates directories and symlinks in $HOME.
+#
+# Usage: scripts/link [REL-PATH]
+
+dotfiles-link() {
+  local rpath="$1"
+  local shallow="$2"
+  local visible="${3:-}"
+  local dst="$HOME/.$rpath"
+  [[ -z "$visible" ]] || dst="$HOME/$rpath"
+
+  if [[ -d "$rpath" ]]; then
+    if [[ -z "$visible" ]] && [[ -f "$rpath/.dotfiles-visible" ]]; then
+      dst="$HOME/$rpath"
+      visible='visible'
+    fi
+    if [[ -f "$rpath/.dotfiles-if-exists" ]]; then
+      if [[ ! -d "$dst" ]]; then
+        [[ -z "$DEBUG" ]] || echo " - skipping $rpath (missing $dst)"
+        return 0
+      fi
+      shallow=
+    fi
+    local dotfiles_only="$rpath/.dotfiles-only"
+
+    if [[ -z "$shallow" ]] || [[ -f "$rpath/.dotfiles-deep" ]] || [[ -f "$dotfiles_only" ]]; then
+      if [[ ! -d "$dst" ]]; then
+        echo " + mkdir $rpath"
+        mkdir -p "$dst"
+      fi
+      local paths=()
+
+      if [[ -f "$dotfiles_only" ]]; then
+        while read -r f; do
+          paths+=( "$rpath/$f" )
+        done < "$dotfiles_only"
+      else
+        while read -r f; do
+          paths+=( "$f" )
+        done < <( find -L "$rpath" -mindepth 1 -maxdepth 1 )
+      fi
+      for f in "${paths[@]}"; do
+        dotfiles-link "$f" 'shallow' "$visible" || return 1
+      done
+      return 0
+    fi
+  fi
+  [[ ! "$(basename "$rpath")" =~ ^(.dotfiles-|del[.]) ]] || return 0
+
+  if [[ -e "$dst" ]]; then
+    if [[ -n "$DEBUG" ]] || [[ ! -L "$dst" ]]; then
+      echo " - skipping $rpath"
+    fi
+  else
+    echo " + linking $dst"
+    ln -s "$PWD/$rpath" "$dst"
+  fi
+}
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  set -eo pipefail
+
+  cd "$(dirname "$0")/.."
+
+  source zshenv
+
+  if [[ -n "$1" ]]; then
+    dotfiles-link "$1"
+  else
+    _SELF=$(basename "$0")
+    for f in *; do
+      [[ ! "$f" =~ $_SELF$ ]] || continue
+      dotfiles-link "$f" || exit 1
+    done
+    # TODO: Is this necessary on new machines?
+    for f in bash irb pry zsh; do
+      touch "$XDG_DATA_HOME/$f/history"
+    done
+  fi
+
+fi

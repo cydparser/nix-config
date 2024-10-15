@@ -1,0 +1,7 @@
+window:
+  decorations: none
+
+font:
+  normal:
+    family: Inconsolata
+  size: 14.0

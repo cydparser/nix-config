@@ -1,0 +1,276 @@
+#!/usr/bin/env bash
+
+_NX_PACKAGES="$XDG_CACHE_HOME/nix/nx-packages"
+
+main() {
+  local cmd="${1:? Missing command}"
+  shift
+  case "$cmd" in
+    b)
+      cmd='build' ;;
+    c)
+      cmd='channel' ;;
+    d)
+      cmd='diff' ;;
+    e)
+      cmd='env' ;;
+    ev)
+      cmd='eval' ;;
+    f)
+      cmd='fetch' ;;
+    q)
+      cmd='query' ;;
+    r)
+      cmd='repl' ;;
+    rb)
+      cmd='rebuild' ;;
+    st)
+      cmd='store' ;;
+    s|sh)
+      cmd='shell' ;;
+    sy)
+      cmd='system' ;;
+  esac
+
+  case "$cmd" in
+    build|develop|run|search|shell|store)
+      exec nix "$cmd" "$@" ;;
+    channel|collect-garbage|copy-closure|daemon|env|generate-config\
+      |generate-patches|hash|index|info|install-package|instantiate|locate\
+      |log2xml|prefetch-git|prefetch-svn|prefetch-url|pull|push)
+      "nix-${cmd}" "$@" ;;
+    build-vms|container|help|install|option|prepare-root|rebuild|version)
+      "nixos-${cmd}" "$@" ;;
+    fetch|pin|query|sql|update|with)
+      "nx-$cmd" "$@" ;;
+    diff)
+      exec nix run nixpkgs#nix-diff "$@" ;;
+    gc)
+      nix store gc "$@" ;;
+    gen|generations)
+      nx-generations "$@"
+      ;;
+    installed)
+      nix-env -q --out-path ;;
+    outdated)
+      nix-env -u --dry-run 2>&1 | rg '^upgrading' \
+        | sed -e 's/^upgrading/  */g' -e "s/'//g" -e 's/ to / -> /g'
+      ;;
+    open)
+      nx-open "$@" ;;
+    optimize)
+      nix-store --optimise "$@" ;;
+    pp)
+      nix show-derivation "$@" ;;
+    repl)
+      if [[ "$1" == "nixos" ]]; then
+        # `config` will contain /etc/nixos/configuration.nix
+        nix repl "<${2:-nixpkgs}/nixos>"
+      elif [[ "$1" == "flake" ]] && [[ -f flake.lock ]]; then
+        local node="${2:? Missing flake node}"
+        shift; shift
+
+        # shellcheck disable=SC2016
+        nix repl "$@" --expr '
+          let
+            locked = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.'"$node"'.locked;
+          in
+            import (fetchTarball {
+              url = "https://github.com/NixOS/nixpkgs/archive/${locked.rev}.tar.gz";
+              sha256 = locked.narHash;
+            }) {}
+        '
+      else
+        nix repl --extra-experimental-features 'flakes repl-flake' "$@"
+      fi
+      ;;
+    squash)
+      exec nix store optimise "$@" ;;
+    system)
+      main "$@" --profile /nix/var/nix/profiles/system ;;
+    upgrade)
+      nixos-rebuild switch --upgrade "$@" ;;
+    *)
+      nix "$cmd" "$@" ;;
+  esac
+}
+
+nx-fetch() {
+  local prot="${1:? Missing protocol}"
+  "nix-prefetch-$prot" "${@:2}"
+}
+
+nx-generations() {
+  echo '* User profile'
+  nix-env --list-generations
+  echo '* System profile'
+  nixos-rebuild list-generations | cat
+}
+
+nx-open() {
+  local attr="${1:? Missing attribute}"
+  local f
+  if [[ -n "$2" ]]; then
+    if [[ "$2" =~ ^\<.+\>$ ]]; then
+      f="$2"
+    else
+      f="$(realpath "$2")"
+    fi
+  elif [[ -e default.nix ]]; then
+    f="$PWD/default.nix"
+  else
+    f="$HOME/src/nixpkgs"
+  fi
+  local tmp
+  tmp="/tmp/nix-shell-${attr}-$(date +%s)"
+  mkdir -p "$tmp/out"
+  (
+    cd "$tmp"
+    nix-shell "$f" --pure -A "$attr" --command "export out='$tmp/out'; return"
+  )
+  rm -rf "${tmp:?}"
+}
+
+nx-pin() {
+  local channel="${1:-nixpkgs}"
+  local json rev url sha256
+
+  if [[ "$channel" = '-j' ]]; then
+    json=true
+    channel="${2:-nixpkgs}"
+  fi
+
+  rev="$(nx-revision "$channel")" \
+    && url="https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz" \
+    && sha256="$(nix-prefetch-url --unpack "$url")" \
+      || return 1
+
+  if [[ -n "$json" ]]; then
+    cat <<EOF
+{
+  "url": "$url",
+  "sha256": "$sha256"
+}
+EOF
+  else
+    cat <<EOF
+  import (builtins.fetchTarball {
+    url = "$url";
+    sha256 = "$sha256";
+  }) {};
+EOF
+  fi
+}
+
+nx-query() {
+  local cmd="${1:? Missing query cmd}"
+  shift
+  case "$cmd" in
+    dep|dependency)
+      local flag
+      case "$1" in
+        rev|reverse)
+          flag='--referrers'; shift ;;
+        run|runtime)
+          flag='--references'; shift ;;
+        sys|system)
+          nix-store -q --tree "$(nix-instantiate '<nixos/nixos>' -A system)"
+          return ;;
+        tree)
+          flag='--tree'; shift ;;
+        *)
+          flag='--requisites'
+      esac
+      nix-store --query "$flag" "$(_paths "$@")"
+      ;;
+    drv)
+      nix-store --query --deriver "$@" ;;
+    gcroots)
+      find /nix/var/nix/gcroots -mindepth 1 -type l -print0 | xargs -0 readlink --canonicalize ;;
+    ghc|ghcs)
+      nix-env -qaP -A "${1:-nu}.pkgs.haskell.compiler" | cat ;;
+    ps|profiles)
+      for d in "/nix/var/nix/profiles/per-user/$USER"/profile-*; do
+        basename "$d"
+        nx-query dep "$d" | rg "$1"
+      done
+      ;;
+    *)
+      rg -i "$cmd" "$_NX_PACKAGES"
+      ;;
+  esac
+}
+
+nx-revision() {
+  local _channel="${1:? Missing _channel}"
+
+  if [[ ! "$_channel" =~ ^/nix/.* ]]; then
+    _channel=$(nix eval --impure --expr "(<$_channel>)") || return 1
+  fi
+
+  cat "$_channel/.git-revision"
+}
+
+nx-sql() {
+  nix-shell -p sqliteInteractive --run \
+            "sudo sqlite3 /nix/var/nix/db/db.sqlite '$*'"
+}
+
+nx-update() {
+  local _channel_name="${1:-nu}"
+  local _channel="<$_channel_name>"
+
+  nix-channel --update
+  sudo nix-channel --update
+
+  mkdir -p "$(dirname "$_NX_PACKAGES")"
+  {
+    nix-env -f "$_channel" -qaP '*' --description;
+    nix-env -f "$_channel" -qaP -A 'haskellPackages' --description;
+  } > "$_NX_PACKAGES"
+
+  nix registry add nu "github:NixOS/nixpkgs/$(nx-revision "$_channel_name")"
+}
+
+# Usage: nix-with PACKAGE[:COMMAND] [ARGS]*
+#
+# Examples:
+#    nx-with haskellPackages.hlint --help
+#    nx-with docker_compose:docker-compose ps
+nx-with() {
+  local pkgcmd="${1:? Missing package:command}"
+  shift
+  local pkg cmd
+  pkg="$(cut -d : -f 1    <<< "$pkgcmd")"
+  cmd="$(cut -d : -f 2 -s <<< "$pkgcmd")"
+
+  if [[ -n "$cmd" ]]; then
+    nix shell "nixpkgs#$pkg" --command "$cmd" "$@"
+  else
+    nix run "nixpkgs#$pkg" -- "$@"
+  fi
+}
+
+_escape() {
+  if [[ $# -gt 0 ]]; then
+    printf " %q" "$@"
+  fi
+}
+
+_paths() {
+  for f in "$@"; do
+    if [[ -e "$f" ]]; then
+      echo "$f"
+    elif command -v "$f"; then
+      :
+    else
+      echo "ERROR: Invalid path: $f" >&2
+      return 1
+    fi
+  done
+}
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  set -eo pipefail
+  main "$@"
+fi

@@ -1,0 +1,49 @@
+:set -XNamedWildCards
+:set -XPartialTypeSignatures
+
+:seti -Wno-type-defaults
+:seti -Wno-name-shadowing
+
+:seti -XGHC2021
+
+:seti -XDerivingVia
+:seti -XDuplicateRecordFields
+:seti -XExtendedDefaultRules
+:seti -XFunctionalDependencies
+:seti -XLexicalNegation
+:seti -XMultiWayIf
+:seti -XOverloadedLabels
+:seti -XOverloadedRecordDot
+:seti -XOverloadedStrings
+:seti -XPackageImports
+:seti -XPatternSynonyms
+:seti -XQualifiedDo
+:seti -XQuantifiedConstraints
+:seti -XRecordWildCards
+:seti -XStrictData
+:seti -XTypeData
+:seti -XTypeFamilies
+:seti -XTypeFamilyDependencies
+:seti -XUnliftedDatatypes
+:seti -XViewPatterns
+
+import Control.Applicative
+import Control.Monad
+import Control.Monad.IO.Class (MonadIO, liftIO)
+import Data.Bifunctor
+import Data.Bool
+import Data.Char
+import Data.Foldable
+import Data.Function
+import Data.List.NonEmpty (NonEmpty(..), (<|), nonEmpty)
+import Data.Maybe
+import Data.Monoid
+import Data.String (fromString)
+import Data.Traversable
+import Data.Tuple (swap)
+import qualified Data.List.NonEmpty as NE
+
+default (Int, String)
+
+:set prompt "λ "
+:set prompt-cont "| "
