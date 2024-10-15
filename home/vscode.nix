@@ -24,7 +24,7 @@ in
     in
     mkIf cfg.enable (
       modules.mkMerge [
-        { home.packages = with pkgs; [ vscode ]; }
+        (mkIf (!cfg.server) { home.packages = with pkgs; [ vscode ]; })
         (mkIf cfg.server {
           home.packages = with pkgs; [ wget ];
 
