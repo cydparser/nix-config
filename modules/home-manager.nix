@@ -1,11 +1,11 @@
 {
   config,
-  inputs,
+  flake-inputs,
   ...
 }:
 {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
+    flake-inputs.home-manager.nixosModules.home-manager
   ];
 
   home-manager = {
@@ -21,7 +21,7 @@
       { ... }:
       {
         imports = [
-          inputs.nix-index-database.hmModules.nix-index
+          flake-inputs.nix-index-database.hmModules.nix-index
           ../home/default.nix
         ];
       };
