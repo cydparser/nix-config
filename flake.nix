@@ -48,8 +48,23 @@
           inherit nixpkgs;
           overlays = [
             inputs.emacs-overlay.overlays.packages
+            overlay
           ];
         };
+
+      overlay = final: prev: {
+        merriam-webster-1913 = final.callPackage nix/merriam-webster-1913.nix;
+
+        sdcv = self.symlinkJoin {
+          name = "sdcv";
+          paths = [ final.sdcv ];
+          buildInputs = [ final.makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/sdcv \
+              --set STARDICT_DATA_DIR "${final.merriam-webster-1913}"
+          '';
+        };
+      };
 
       common = {
         config.nix-config = rec {
@@ -76,6 +91,9 @@
       };
     in
     {
+      overlays = {
+        default = overlay;
+      };
 
       # nixosModules = {
       #   # TODO
@@ -104,7 +122,7 @@
     // flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs { };
+        pkgs = importNixpkgs system;
       in
       {
         devShells = {
