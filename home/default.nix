@@ -8,7 +8,6 @@
     ./jujutsu.nix
     ./nix.nix
     ./nushell.nix
-    ./typst.nix
     ./vscode.nix
   ];
 
