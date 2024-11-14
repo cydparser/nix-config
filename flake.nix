@@ -65,39 +65,16 @@
           '';
         };
       };
-
-      common = {
-        config.nix-config = rec {
-          user = "cyd";
-
-          home-manager = {
-            users.${user} =
-              { ... }:
-              {
-                config = {
-                  nix-config = {
-                    git = {
-                      user = {
-                        name = "cydparser";
-                        email = "cydparser@gmail.com";
-                      };
-                    };
-                    home.stateVersion = "24.11";
-                  };
-                };
-              };
-          };
-        };
-      };
     in
     {
       overlays = {
         default = overlay;
       };
 
-      # nixosModules = {
-      #   # TODO
-      # };
+      nixosModules = {
+        base = modules/base.nix;
+        home-manager = modules/home-manager.nix;
+      };
 
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
@@ -109,9 +86,8 @@
             };
           };
           modules = [
-            modules/base.nix
-            common
-            modules/home-manager.nix
+            self.nixosModules.base
+            self.nixosModules.home-manager
             nixos-wsl.nixosModules.default
             hosts/wsl.nix
           ];
