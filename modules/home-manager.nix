@@ -3,6 +3,11 @@
   flake-inputs,
   ...
 }:
+let
+  cfg = config.nix-config;
+
+  inherit (cfg) username;
+in
 {
   imports = [
     flake-inputs.home-manager.nixosModules.home-manager
@@ -17,13 +22,17 @@
     # Use system-level Nixpkgs.
     useGlobalPkgs = true;
 
-    users.${config.nix-config.user} =
+    users.${username} =
       { ... }:
       {
         imports = [
           flake-inputs.nix-index-database.hmModules.nix-index
           ../home/default.nix
         ];
+
+        home = {
+          stateVersion = cfg.stateVersion;
+        };
       };
   };
 }
