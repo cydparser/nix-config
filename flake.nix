@@ -12,10 +12,9 @@
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
-    flake-utils = "github:numtide/flake-utils";
+    flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -45,19 +44,20 @@
       importNixpkgs =
         system:
         import nixpkgs {
-          inherit nixpkgs;
+          inherit nixpkgs system;
+
           overlays = [
-            inputs.emacs-overlay.overlays.packages
+            inputs.emacs-overlay.overlays.package
             overlay
           ];
         };
 
       overlay = final: prev: {
-        merriam-webster-1913 = final.callPackage nix/merriam-webster-1913.nix;
+        merriam-webster-1913 = final.callPackage nix/merriam-webster-1913.nix { };
 
         sdcv = self.symlinkJoin {
           name = "sdcv";
-          paths = [ final.sdcv ];
+          paths = [ prev.sdcv ];
           buildInputs = [ final.makeWrapper ];
           postBuild = ''
             wrapProgram $out/bin/sdcv \
