@@ -44,27 +44,40 @@
       importNixpkgs =
         system:
         import nixpkgs {
-          inherit nixpkgs system;
+          inherit system;
 
           overlays = [
             inputs.emacs-overlay.overlays.package
             overlay
           ];
+
+          config = {
+            allowUnfree = true;
+          };
         };
 
-      overlay = final: prev: {
-        merriam-webster-1913 = final.callPackage nix/merriam-webster-1913.nix { };
+      overlay =
+        final: prev:
+        {
+          merriam-webster-1913 = final.callPackage nix/merriam-webster-1913.nix { };
 
-        sdcv = self.symlinkJoin {
-          name = "sdcv";
-          paths = [ prev.sdcv ];
-          buildInputs = [ final.makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/sdcv \
-              --set STARDICT_DATA_DIR "${final.merriam-webster-1913}"
-          '';
-        };
-      };
+          sdcv = final.symlinkJoin {
+            name = "sdcv";
+            paths = [ prev.sdcv ];
+            buildInputs = [ final.makeWrapper ];
+            postBuild = ''
+              wrapProgram $out/bin/sdcv \
+                --set STARDICT_DATA_DIR "${final.merriam-webster-1913}"
+            '';
+          };
+        }
+        // prev.lib.attrsets.genAttrs [
+          "cabal-add"
+          "cabal-gild"
+          "eventlog2html"
+          "ghc-events"
+          "lentil"
+        ] (name: final.haskell.lib.justStaticExecutables final.haskellPackages.${name});
     in
     {
       overlays = {
@@ -77,14 +90,16 @@
       };
 
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+        wsl = nixpkgs.lib.nixosSystem {
+          pkgs = importNixpkgs flake-utils.lib.system.x86_64-linux;
+
           specialArgs = {
             flake-inputs = {
               inherit home-manager;
               nix-index-database = inputs.nix-index-database;
             };
           };
+
           modules = [
             self.nixosModules.base
             self.nixosModules.home-manager

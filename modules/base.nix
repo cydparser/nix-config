@@ -41,8 +41,6 @@ in
       };
     };
 
-    nixpkgs.config.allowUnfree = true;
-
     system.stateVersion = cfg.stateVersion;
   };
 }
