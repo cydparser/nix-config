@@ -9,6 +9,11 @@
   };
 
   inputs = {
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,6 +34,8 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
+    systems.url = "github:nix-systems/default";
   };
 
   outputs =
@@ -41,6 +48,10 @@
       ...
     }:
     let
+      systems = if builtins ? currentSystem then [ builtins.currentSystem ] else import inputs.systems;
+
+      forEachSystem = nixpkgs.lib.genAttrs systems;
+
       importNixpkgs =
         system:
         import nixpkgs {
@@ -109,22 +120,42 @@
         };
       };
 
-    }
-    // flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = importNixpkgs system;
-      in
-      {
-        devShells = {
-          default = with pkgs; [
-            home-manager.${system}.packages.home-manager
-            just
-            nixfmt-rfc-style
-          ];
-        };
+      packages = forEachSystem (system: {
+        devenv-up = self.devShells.${system}.default.config.procfileScript;
 
-        formatter = pkgs.nixfmt-rfc-style;
-      }
-    );
+        devenv-test = self.devShells.${system}.default.config.test;
+      });
+
+      devShells = forEachSystem (
+        system:
+        let
+          pkgs = importNixpkgs system;
+        in
+        {
+          default = inputs.devenv.lib.mkShell {
+            inherit inputs pkgs;
+
+            modules = [
+              {
+                git-hooks.hooks = {
+                  nixfmt-rfc-style = {
+                    enable = true;
+                    excludes = [ "archive/*" ];
+                  };
+                };
+
+                languages = {
+                  nix = {
+                    enable = true;
+                    lsp.package = pkgs.nixd;
+                  };
+                };
+
+                packages = [ ];
+              }
+            ];
+          };
+        }
+      );
+    };
 }
