@@ -1,7 +1,7 @@
-{ ... }:
 {
   imports = [
     ./core.nix
+    ./dev.nix
     ./emacs.nix
     ./fonts.nix
     ./git.nix
