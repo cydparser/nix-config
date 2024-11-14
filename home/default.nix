@@ -11,4 +11,12 @@
     ./typst.nix
     ./vscode.nix
   ];
+
+  config = {
+    programs = {
+      home-manager.enable = true;
+    };
+
+    xdg.enable = true;
+  };
 }
