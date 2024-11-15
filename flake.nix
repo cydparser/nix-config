@@ -83,7 +83,6 @@
           };
         }
         // prev.lib.attrsets.genAttrs [
-          "cabal-add"
           "cabal-gild"
           "eventlog2html"
           "ghc-events"

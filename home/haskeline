@@ -1,6 +1,6 @@
 bellStyle: NoBell
 historyDuplicates: IgnoreConsecutive
-maxHistorySize: Just 999
+maxHistorySize: Just 4096
 
 bind: meta-n ctrl-n
 bind: meta-p ctrl-p

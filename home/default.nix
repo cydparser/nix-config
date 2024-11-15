@@ -5,6 +5,7 @@
     ./emacs.nix
     ./fonts.nix
     ./git.nix
+    ./haskell.nix
     ./jujutsu.nix
     ./nix.nix
     ./nushell.nix
