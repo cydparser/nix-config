@@ -22,14 +22,10 @@ in
 
       home.packages = with pkgs; [
         symbola
-        (nerdfonts.override {
-          fonts = [
-            "CascadiaCode"
-            "Hasklig"
-            "Inconsolata"
-            "IosevkaTerm"
-          ];
-        })
+        nerd-fonts.caskaydia-cove
+        nerd-fonts.hasklug
+        nerd-fonts.inconsolata
+        nerd-fonts.iosevka-term
       ];
     };
 }
