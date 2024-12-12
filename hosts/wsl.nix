@@ -1,9 +1,15 @@
-{ pkgs, config, ... }:
+{
+  config,
+  flake-inputs,
+  pkgs,
+  ...
+}:
 let
   cfg = config.nix-config;
 in
 {
   imports = [
+    flake-inputs.nixos-wsl.nixosModules.default
     ../users/cyd.nix
   ];
 

@@ -105,15 +105,13 @@
 
           specialArgs = {
             flake-inputs = {
-              inherit home-manager;
-              nix-index-database = inputs.nix-index-database;
+              inherit (inputs) home-manager nixos-wsl nix-index-database;
             };
           };
 
           modules = [
             self.nixosModules.base
             self.nixosModules.home-manager
-            nixos-wsl.nixosModules.default
             hosts/wsl.nix
           ];
         };
