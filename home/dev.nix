@@ -37,6 +37,10 @@ in
           shellcheck
           shfmt
         ];
+
+        xdg.configFile = {
+          "shellcheckrc".source = config/shellcheckrc;
+        };
       })
       (mkIf cfg.toml.enable {
         home.packages = with pkgs; [
@@ -48,6 +52,10 @@ in
           yaml-language-server
           yamlfmt
         ];
+
+        xdg.configFile = {
+          "yamlfmt/.yamlfmt".source = config/yamlfmt/.yamlfmt;
+        };
       })
     ];
 }
