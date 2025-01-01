@@ -13,6 +13,13 @@
       procs
     ];
 
+    home.file = {
+      ".local/bin" = {
+        source = local/bin;
+        recursive = true;
+      };
+    };
+
     home.sessionPath = [
       "$HOME/.local/bin"
     ];
