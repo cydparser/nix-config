@@ -14,7 +14,13 @@
     ];
 
     programs = {
-      bat.enable = true;
+      bat = {
+        enable = true;
+        config = {
+          theme = "Nord";
+        };
+      };
+
       bottom.enable = true;
       eza.enable = true;
       fd.enable = true;
@@ -29,6 +35,7 @@
           enable = true;
         };
       };
+
       fzf =
         let
           fd = lib.getExe pkgs.fd;
