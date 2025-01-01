@@ -18,6 +18,8 @@
         type = types.str;
         default = "9.10";
       };
+
+      tools.enable = lib.mkEnableOption "tools";
     };
 
   config =
@@ -42,34 +44,37 @@
         supportedGhcVersions = [ ghcVersionNix ];
       };
     in
-    modules.mkMerge [
-      (mkIf cfg.enable ({
-        home.packages = with pkgs; [
-          # cabal-add (broken)
-          cabal-gild
-          cabal-install
-          cabal2nix
-          eventlog2html
-          ghc-with-packages
-          ghc-events
-          hls
-        ];
+    mkIf cfg.enable (
+      modules.mkMerge [
+        (mkIf cfg.tools.enable ({
+          home.packages = with pkgs; [
+            # cabal-add (broken)
+            cabal-gild
+            cabal-install
+            cabal2nix
+            eventlog2html
+            ghc-with-packages
+            ghc-events
+            hls
+          ];
+        }))
+        {
+          home.file = {
+            ".ghci".source = ./ghci;
 
-        home.file = {
-          ".ghci".source = ./ghci;
+            ".haskeline".source = ./haskeline;
 
-          ".haskeline".source = ./haskeline;
+            ".hlint.yaml".source = ./hlint.yaml;
+          };
 
-          ".hlint.yaml".source = ./hlint.yaml;
-        };
+          xdg.configFile = {
+            "brittany/config.yaml".source = config/brittany/config.yaml;
 
-        xdg.configFile = {
-          "brittany/config.yaml".source = config/brittany/config.yaml;
+            "fourmolu.yaml".source = config/fourmolu.yaml;
 
-          "fourmolu.yaml".source = config/fourmolu.yaml;
-
-          "stylish-haskell/config.yaml".source = config/stylish-haskell/config.yaml;
-        };
-      }))
-    ];
+            "stylish-haskell/config.yaml".source = config/stylish-haskell/config.yaml;
+          };
+        }
+      ]
+    );
 }
