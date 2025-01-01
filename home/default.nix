@@ -10,6 +10,7 @@
     ./jujutsu.nix
     ./nix.nix
     ./nushell.nix
+    ./terminal.nix
     ./vscode.nix
   ];
 
