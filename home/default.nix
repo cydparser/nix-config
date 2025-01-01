@@ -1,5 +1,6 @@
 {
   imports = [
+    ./bash.nix
     ./core.nix
     ./dev.nix
     ./emacs.nix
