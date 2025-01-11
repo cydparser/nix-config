@@ -2,6 +2,15 @@
   config = {
     programs = {
       starship.enable = true;
+
+      tmux = {
+        enable = true;
+        clock24 = true;
+        extraConfig = config/tmux/conf;
+        focusEvents = true;
+        historyLimit = 8192;
+        terminal = "screen-256color";
+      };
     };
 
     xdg.configFile = {
@@ -12,8 +21,6 @@
       "psql/psqlrc".source = config/psql/psqlrc;
 
       "readline/inputrc".source = config/readline/inputrc;
-
-      "tmux/conf".source = config/tmux/conf;
     };
 
     home.sessionVariables = {
