@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -35,7 +36,26 @@
       bottom.enable = true;
       eza.enable = true;
       fd.enable = true;
-      gpg.enable = true;
+
+      gpg = {
+        enable = true;
+        homedir = "${config.xdg.dataHome}/gnupg";
+        settings = {
+        };
+      };
+
+      gpg-agent =
+        let
+          ttl = 9 * 60 * 60;
+        in
+        {
+          enable = true;
+          defaultCacheTtl = ttl;
+          defaultCacheTtlSsh = ttl;
+          maxCacheTtl = ttl;
+          maxCacheTtlSsh = ttl;
+        };
+
       lsd.enable = true;
       ripgrep.enable = true;
 
