@@ -12,6 +12,7 @@
     ./nushell.nix
     ./terminal.nix
     ./vscode.nix
+    ./xmonad.nix
   ];
 
   config = {
