@@ -1,6 +1,5 @@
 {
   imports = [
-    ./bash.nix
     ./core.nix
     ./dev.nix
     ./emacs.nix
@@ -10,6 +9,7 @@
     ./jujutsu.nix
     ./nix.nix
     ./nushell.nix
+    ./shell.nix
     ./terminal.nix
     ./vscode.nix
     ./xmonad.nix
