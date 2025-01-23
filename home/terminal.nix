@@ -1,4 +1,11 @@
 {
+  config,
+  ...
+}:
+let
+  tmux-extra-conf = "tmux/extra.conf";
+in
+{
   config = {
     programs = {
       starship.enable = true;
@@ -6,7 +13,7 @@
       tmux = {
         enable = true;
         clock24 = true;
-        extraConfig = config/tmux/conf;
+        extraConfig = "source-file ${config.xdg.configHome}/${tmux-extra-conf}";
         focusEvents = true;
         historyLimit = 8192;
         terminal = "screen-256color";
@@ -21,6 +28,8 @@
       "psql/psqlrc".source = config/psql/psqlrc;
 
       "readline/inputrc".source = config/readline/inputrc;
+
+      "${tmux-extra-conf}".source = config/tmux/conf;
     };
 
     home.sessionVariables = {
