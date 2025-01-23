@@ -44,18 +44,6 @@
         };
       };
 
-      gpg-agent =
-        let
-          ttl = 9 * 60 * 60;
-        in
-        {
-          enable = true;
-          defaultCacheTtl = ttl;
-          defaultCacheTtlSsh = ttl;
-          maxCacheTtl = ttl;
-          maxCacheTtlSsh = ttl;
-        };
-
       lsd.enable = true;
       ripgrep.enable = true;
 
@@ -77,6 +65,20 @@
           defaultCommand = "${fd} --type f";
           fileWidgetCommand = "${fd} --type f";
           tmux.enableShellIntegration = true;
+        };
+    };
+
+    services = {
+      gpg-agent =
+        let
+          ttl = 9 * 60 * 60;
+        in
+        {
+          enable = true;
+          defaultCacheTtl = ttl;
+          defaultCacheTtlSsh = ttl;
+          maxCacheTtl = ttl;
+          maxCacheTtlSsh = ttl;
         };
     };
   };
