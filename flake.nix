@@ -98,6 +98,7 @@
         default = modules/default.nix;
         base = modules/base.nix;
         home-manager = modules/home-manager.nix;
+        linux = modules/linux/default.nix;
       };
 
       nixosConfigurations = {
@@ -112,6 +113,7 @@
 
           modules = [
             self.nixosModules.default
+            self.nixosModules.linux
             hosts/vbox.nix
           ];
         };
@@ -126,8 +128,7 @@
           };
 
           modules = [
-            self.nixosModules.base
-            self.nixosModules.home-manager
+            self.nixosModules.default
             hosts/wsl.nix
           ];
         };
