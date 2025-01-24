@@ -22,7 +22,7 @@ in
       programs = {
         emacs = {
           enable = true;
-          defaultEditor = true;
+          # TODO: defaultEditor = true;
           package = if utils.isWayland osConfig then pkgs.emacs29-pgtk else pkgs.emacs29;
 
           extraPackages =
