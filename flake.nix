@@ -101,6 +101,21 @@
       };
 
       nixosConfigurations = {
+        vbox = nixpkgs.lib.nixosSystem {
+          pkgs = importNixpkgs flake-utils.lib.system.x86_64-linux;
+
+          specialArgs = {
+            flake-inputs = {
+              inherit (inputs) home-manager nix-index-database;
+            };
+          };
+
+          modules = [
+            self.nixosModules.default
+            hosts/vbox.nix
+          ];
+        };
+
         wsl = nixpkgs.lib.nixosSystem {
           pkgs = importNixpkgs flake-utils.lib.system.x86_64-linux;
 
