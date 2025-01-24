@@ -16,6 +16,22 @@ in
         shellAliases = utils.shellAliases // {
         };
       };
+
+      zsh = {
+        enable = false;
+
+        history = {
+          extended = true;
+          ignoreDups = true;
+          ignoreSpace = true;
+          path = "${config.xdg.dataHome}/zsh/history";
+          share = true;
+        };
+
+        shellAliases = utils.shellAliases;
+
+        syntaxHighlighting.enable = true;
+      };
     };
   };
 }
