@@ -16,7 +16,25 @@ in
     inherit username;
   };
 
+  time.timeZone = "America/Los_Angeles";
+
   users.users.${username} = {
     isNormalUser = true;
+
+    extraGroups = [
+      "audio"
+      "cdrom"
+      "docker"
+      "floppy"
+      "input"
+      "libvirtd"
+      "lp"
+      "systemd-journal"
+      "vboxsf"
+      "video"
+      "wheel"
+    ];
+
+    uid = 1000;
   };
 }
