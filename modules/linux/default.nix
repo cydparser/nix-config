@@ -14,7 +14,7 @@
       inherit (lib) types;
     in
     {
-      audio.enable = {
+      audio.enable = lib.mkOption {
         type = types.bool;
         default = true;
       };
@@ -58,8 +58,6 @@
         packages = [
           pkgs.terminus_font
         ];
-
-        useXkbConfig = true;
       };
 
       fileSystems."/".options = [ "noatime" ];
@@ -73,11 +71,6 @@
 
       hardware = {
         graphics.enable32Bit = true;
-
-        pulseaudio = {
-          enable = cfg.audio.enable;
-          support32Bit = true;
-        };
       };
 
       networking.firewall.allowPing = false;
