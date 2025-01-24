@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options =
+  options.nix-config.desktop =
     let
       inherit (lib) types;
     in
@@ -42,12 +42,12 @@
         };
       }
       (modules.mkIf (cfg.windowManager == "xmonad") {
+        environment.systemPackages = with pkgs; [
+          dmenu
+        ];
+
         services = {
           displayManager.defaultSession = "none+xmonad";
-
-          environment.systemPackages = with pkgs; [
-            dmenu
-          ];
 
           xserver = {
             displayManager.lightdm.enable = true;
