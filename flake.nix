@@ -95,6 +95,7 @@
       };
 
       nixosModules = {
+        default = modules/default.nix;
         base = modules/base.nix;
         home-manager = modules/home-manager.nix;
       };
