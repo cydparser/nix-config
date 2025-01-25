@@ -52,12 +52,7 @@
 
       console = {
         earlySetup = true;
-        font = "ter-232n";
         keyMap = "dvorak";
-
-        packages = [
-          pkgs.terminus_font
-        ];
       };
 
       fileSystems."/".options = [ "noatime" ];
