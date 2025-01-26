@@ -10,7 +10,7 @@
       inherit (lib) types;
     in
     {
-      windowManager = {
+      windowManager = lib.mkOption {
         type = types.nullOr (types.enum [ "xmonad" ]);
         default = "xmonad";
       };
