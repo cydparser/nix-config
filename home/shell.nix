@@ -13,6 +13,10 @@ in
 
         historyFile = "${config.xdg.dataHome}/bash/history";
 
+        initExtra = ''
+          mkdir -p "${builtins.dirOf config.programs.bash.historyFile}"
+        '';
+
         shellAliases = utils.shellAliases // {
         };
       };
