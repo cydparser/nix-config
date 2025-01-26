@@ -11,6 +11,8 @@ in
       bash = {
         enable = true;
 
+        historyControl = [ "ignoreboth" ];
+
         historyFile = "${config.xdg.dataHome}/bash/history";
 
         initExtra = ''
