@@ -22,6 +22,7 @@ in
       nix-output-monitor
       nix-prefetch-git
       nixfmt-rfc-style
+      npins
       nurl
       statix
     ];
