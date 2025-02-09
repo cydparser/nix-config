@@ -50,6 +50,8 @@ main() {
     gen|generations)
       nx-generations "$@"
       ;;
+    home)
+      main "$@" --profile ~/.local/state/nix/profiles/home-manager ;;
     installed)
       nix-env -q --out-path ;;
     outdated)
