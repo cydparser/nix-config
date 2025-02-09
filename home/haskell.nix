@@ -67,6 +67,10 @@
             ".hlint.yaml".source = ./hlint.yaml;
           };
 
+          home.sessionVariables = {
+            CABAL_DIR = "$HOME/.cabal";
+          };
+
           xdg.configFile = {
             "brittany/config.yaml".source = config/brittany/config.yaml;
 
