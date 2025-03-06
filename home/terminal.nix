@@ -8,7 +8,11 @@ in
 {
   config = {
     programs = {
-      starship.enable = true;
+      starship = {
+        enable = true;
+        # Nushell integration doesn't work in "dumb" terminals.
+        enableNushellIntegration = false;
+      };
 
       tmux = {
         enable = true;
