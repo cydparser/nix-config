@@ -25,6 +25,7 @@ in
       npins
       nurl
       statix
+      vulnix
     ];
   };
 }
