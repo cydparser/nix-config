@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, pkgs, ... }:
 let
   username = "cyd";
 in
@@ -18,7 +18,7 @@ in
 
   time.timeZone = "America/Los_Angeles";
 
-  users.users.${username} = {
+  users.users.${username} = lib.modules.mkIf pkgs.stdenv.isLinux {
     isNormalUser = true;
 
     extraGroups = [

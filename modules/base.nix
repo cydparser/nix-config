@@ -19,7 +19,7 @@ in
       };
 
       stateVersion = mkOption {
-        type = types.str;
+        type = if pkgs.stdenv.isLinux then types.str else types.int;
         description = "See system.stateVersion";
       };
     };

@@ -26,12 +26,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -53,7 +58,9 @@
     let
       systems = if builtins ? currentSystem then [ builtins.currentSystem ] else import inputs.systems;
 
-      forEachSystem = nixpkgs.lib.genAttrs systems;
+      lib = nixpkgs.lib;
+
+      forEachSystem = lib.genAttrs systems;
 
       importNixpkgs =
         system:
@@ -97,11 +104,33 @@
         default = overlay;
       };
 
+      darwinModules = {
+        default = modules/darwin/default.nix;
+      };
+
       nixosModules = {
         default = modules/default.nix;
         base = modules/base.nix;
         home-manager = modules/home-manager.nix;
         linux = modules/linux/default.nix;
+      };
+
+      darwinConfigurations = {
+        "moon" = inputs.nix-darwin.lib.darwinSystem {
+          pkgs = importNixpkgs flake-utils.lib.system.aarch64-darwin;
+
+          specialArgs = {
+            flake-inputs = lib.attrsets.getAttrs [ "home-manager" "nix-index-database" ] inputs;
+          };
+
+          system.configurationRevision = self.rev or self.dirtyRev or null;
+
+          modules = [
+            self.nixosModules.default
+            self.darwinModules.default
+            hosts/moon.nix
+          ];
+        };
       };
 
       nixosConfigurations = {
