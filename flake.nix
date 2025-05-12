@@ -50,8 +50,6 @@
     inputs@{
       self,
       flake-utils,
-      home-manager,
-      nixos-wsl,
       nixpkgs,
       ...
     }:
@@ -134,7 +132,7 @@
       };
 
       nixosConfigurations = {
-        vbox = nixpkgs.lib.nixosSystem {
+        vbox = lib.nixosSystem {
           pkgs = importNixpkgs flake-utils.lib.system.x86_64-linux;
 
           specialArgs = {
@@ -150,7 +148,7 @@
           ];
         };
 
-        wsl = nixpkgs.lib.nixosSystem {
+        wsl = lib.nixosSystem {
           pkgs = importNixpkgs flake-utils.lib.system.x86_64-linux;
 
           specialArgs = {
