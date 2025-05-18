@@ -44,7 +44,6 @@
         };
       };
 
-      lsd.enable = true;
       ripgrep.enable = true;
 
       direnv = {
