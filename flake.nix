@@ -27,7 +27,8 @@
     };
 
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
+      # Exclude "The Plan" (https://github.com/nix-darwin/nix-darwin/pull/1341)
+      url = "github:nix-darwin/nix-darwin/8817b00b0011750381d0d44bb94d61087349b6ba";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -107,9 +108,9 @@
       };
 
       nixosModules = {
-        default = modules/default.nix;
         base = modules/base.nix;
         home-manager = modules/home-manager.nix;
+        linux-minimal = modules/linux/minimal.nix;
         linux = modules/linux/default.nix;
       };
 
@@ -124,7 +125,6 @@
           system.configurationRevision = self.rev or self.dirtyRev or null;
 
           modules = [
-            self.nixosModules.default
             self.darwinModules.default
             hosts/moon.nix
           ];
@@ -142,7 +142,6 @@
           };
 
           modules = [
-            self.nixosModules.default
             self.nixosModules.linux
             hosts/vbox.nix
           ];
@@ -158,7 +157,7 @@
           };
 
           modules = [
-            self.nixosModules.default
+            self.nixosModules.linux-minimal
             hosts/wsl.nix
           ];
         };

@@ -7,16 +7,20 @@
 {
   options.nix-config.dev.haskell =
     let
-      inherit (lib) mkOption types;
+      inherit (lib) mkOption options types;
     in
     {
       enable = lib.mkEnableOption "haskell" // {
         default = true;
       };
 
-      ghc.version = mkOption {
-        type = types.str;
-        default = "9.10";
+      ghc = {
+        enable = options.mkEnable "ghc";
+
+        version = mkOption {
+          type = types.str;
+          default = "9.10";
+        };
       };
 
       tools.enable = lib.mkEnableOption "tools";
@@ -47,16 +51,20 @@
     mkIf cfg.enable (
       modules.mkMerge [
         (mkIf cfg.tools.enable ({
-          home.packages = with pkgs; [
-            # cabal-add (broken)
-            cabal-gild
-            cabal-install
-            cabal2nix
-            eventlog2html
-            ghc-with-packages
-            ghc-events
-            hls
-          ];
+          home.packages =
+            with pkgs;
+            [
+              # cabal-add (broken)
+              cabal-gild
+              cabal2nix
+              eventlog2html
+              ghc-events
+            ]
+            ++ lib.options cfg.ghc.enable [
+              cabal-install
+              ghc-with-packages
+              hls
+            ];
         }))
         {
           home.file = {

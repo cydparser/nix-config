@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
 let
   username = "cyd";
+
+  inherit (lib) modules;
 in
 {
   home-manager.users.${username} = {
@@ -18,23 +20,28 @@ in
 
   time.timeZone = "America/Los_Angeles";
 
-  users.users.${username} = lib.modules.mkIf pkgs.stdenv.isLinux {
-    isNormalUser = true;
+  users.users.${username} = modules.mkMerge [
+    (modules.mkIf pkgs.stdenv.isLinux {
+      isNormalUser = true;
 
-    extraGroups = [
-      "audio"
-      "cdrom"
-      "docker"
-      "floppy"
-      "input"
-      "libvirtd"
-      "lp"
-      "systemd-journal"
-      "vboxsf"
-      "video"
-      "wheel"
-    ];
+      extraGroups = [
+        "audio"
+        "cdrom"
+        "docker"
+        "floppy"
+        "input"
+        "libvirtd"
+        "lp"
+        "systemd-journal"
+        "vboxsf"
+        "video"
+        "wheel"
+      ];
 
-    uid = 1000;
-  };
+      uid = 1000;
+    })
+    (modules.mkIf pkgs.stdenv.isDarwin {
+      home = "/Users/${username}";
+    })
+  ];
 }

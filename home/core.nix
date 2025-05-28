@@ -6,13 +6,15 @@
 }:
 {
   config = {
-    home.packages = with pkgs; [
-      du-dust
-      duf
-      hyperfine
-      libtree
-      procs
-    ];
+    home.packages =
+      with pkgs;
+      [
+        du-dust
+        duf
+        hyperfine
+        procs
+      ]
+      ++ lib.optional (!pkgs.stdenv.isDarwin) libtree;
 
     home.file = {
       ".local/bin" = {

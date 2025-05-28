@@ -33,6 +33,8 @@
   networking.hostName = "vbox";
 
   nix-config = {
-    stateVersion = "24.11";
+    home-manager.stateVersion = "24.11";
   };
+
+  system.stateVersion = "24.11";
 }

@@ -1,5 +1,6 @@
 inputs@{
   config,
+  pkgs,
   ...
 }:
 let
@@ -24,7 +25,7 @@ in
       };
 
       zsh = {
-        enable = false;
+        enable = pkgs.stdenv.isDarwin;
 
         history = {
           extended = true;

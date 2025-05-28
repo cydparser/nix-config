@@ -17,11 +17,6 @@ in
         type = types.str;
         description = "Username of primary user";
       };
-
-      stateVersion = mkOption {
-        type = if pkgs.stdenv.isLinux then types.str else types.int;
-        description = "See system.stateVersion";
-      };
     };
 
   config = {
@@ -40,7 +35,5 @@ in
         trusted-users = [ cfg.username ];
       };
     };
-
-    system.stateVersion = cfg.stateVersion;
   };
 }

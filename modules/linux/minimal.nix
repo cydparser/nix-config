@@ -1,8 +1,7 @@
-{ flake-inputs, ... }:
-{
+{ flake-inputs, ... }:{
   imports = [
-    ./base.nix
+    ../base.nix
     flake-inputs.home-manager.nixosModules.home-manager
-    ./home-manager.nix
+    ../home-manager.nix
   ];
 }

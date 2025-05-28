@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./minimal.nix
     ./desktop.nix
   ];
 

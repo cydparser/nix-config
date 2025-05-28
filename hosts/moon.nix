@@ -1,11 +1,27 @@
+{ config, ... }:
 {
   imports = [
     ../users/cyd.nix
   ];
 
-  networking.hostName = "moon";
+  config =
+    let
+      cfg = config.nix-config;
+    in
+    {
+      networking.hostName = "moon";
 
-  nix-config = {
-    stateVersion = 6;
-  };
+      home-manager.users.${cfg.username} = {
+        nix-config.vscode.enable = false;
+        nix-config.emacs.enable = false; # XXX
+      };
+
+      nix-config = {
+        home-manager = {
+          stateVersion = "25.05";
+        };
+      };
+
+      system.stateVersion = 6;
+    };
 }
