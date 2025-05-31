@@ -9,6 +9,7 @@
     ./jujutsu.nix
     ./nix.nix
     ./nushell.nix
+    ./rust.nix
     ./shell.nix
     ./terminal.nix
     ./vscode.nix
