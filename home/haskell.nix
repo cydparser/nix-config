@@ -87,6 +87,17 @@
             "stylish-haskell/config.yaml".source = config/stylish-haskell/config.yaml;
           };
         }
+        (mkIf pkgs.stdenv.isDarwin (
+          let
+            init-ghcup = ''
+              [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env"
+            '';
+          in
+          {
+            programs.bash.profileExtra = init-ghcup;
+            programs.zsh.envExtra = init-ghcup;
+          }
+        ))
       ]
     );
 }
