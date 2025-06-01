@@ -13,7 +13,6 @@
 
       home-manager.users.${cfg.username} = {
         nix-config.vscode.enable = false;
-        nix-config.emacs.enable = false; # XXX
       };
 
       nix-config = {

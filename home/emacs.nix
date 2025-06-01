@@ -7,6 +7,27 @@ inputs@{
 }:
 let
   utils = import ./utils.nix inputs;
+
+  emacs-darwin =
+    let
+      homebrew-emacs-plus = pkgs.fetchgit {
+        url = "https://github.com/d12frosted/homebrew-emacs-plus.git";
+        rev = "3e95d573d5f13aba7808193b66312b38a7c66851";
+        outputHash = "1dcn3z5swbymbqxyn0b5g0l4ydhqvsdm83qayixqkrgl3fgn5shi";
+        outputHashAlgo = "sha256";
+      };
+
+      emacs = pkgs.emacs-pgtk;
+
+      patchesDir = "${homebrew-emacs-plus}/patches/emacs-${builtins.head (builtins.splitVersion emacs.version)}";
+    in
+    emacs.overrideAttrs (old: {
+      patches =
+        (old.patches or [ ])
+        ++ lib.attrsets.mapAttrsToList (k: _: "${patchesDir}/${k}") (
+          lib.filterAttrs (k: v: lib.hasSuffix ".patch" k) (builtins.readDir patchesDir)
+        );
+    });
 in
 {
   options.nix-config.emacs = {
@@ -22,8 +43,14 @@ in
       programs = {
         emacs = {
           enable = true;
-          # TODO: defaultEditor = true;
-          package = if utils.isWayland osConfig then pkgs.emacs30-pgtk else pkgs.emacs30;
+
+          package =
+            if pkgs.stdenv.isDarwin then
+              emacs-darwin
+            else if utils.isWayland osConfig then
+              pkgs.emacs-pgtk
+            else
+              pkgs.emacs;
 
           extraPackages =
             ps: with ps; [
@@ -50,5 +77,13 @@ in
         sdcv
         wordnet
       ];
+
+      home.sessionVariables = {
+        EDITOR = lib.getBin (
+          pkgs.writeShellScript "editor" ''
+            exec ${lib.getBin config.programs.emacs.package}/bin/emacsclient "''${@:---create-frame}"
+          ''
+        );
+      };
     };
 }
