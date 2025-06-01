@@ -33,6 +33,8 @@ in
         keep-outputs = true;
 
         trusted-users = [ cfg.username ];
+
+        upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
       };
     };
   };
