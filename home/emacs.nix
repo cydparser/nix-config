@@ -61,10 +61,6 @@ in
         };
       };
 
-      home.file = {
-        "Library/Spelling".source = "${pkgs.hunspellDicts.en-us}/share/hunspell";
-      };
-
       xdg.configFile = {
         "hunspell/en_US".source =
           config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/src/nix-config/home/config/hunspell/en_US";
@@ -73,7 +69,7 @@ in
       home.packages = with pkgs; [
         cask
         espeak
-        hunspell
+        (hunspellWithDicts [ hunspellDicts.en-us ])
         sdcv
         wordnet
       ];
