@@ -22,10 +22,12 @@ in
 
       home.packages = with pkgs; [
         symbola
-        nerd-fonts.caskaydia-cove
+        merriweather
+        nerd-fonts.fira-code
         nerd-fonts.hasklug
-        nerd-fonts.inconsolata
         nerd-fonts.iosevka-term
+        nerd-fonts.iosevka
+        noto-fonts
       ];
     };
 }
