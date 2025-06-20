@@ -1,4 +1,5 @@
 ADT
+AST
 CUSK
 Cyd
 DevOps
@@ -16,7 +17,6 @@ IaaS
 JRuby
 LaTeX
 NixOS
-Pragmas
 REPL
 RTS
 SCC
@@ -62,6 +62,10 @@ isomorphisms
 kinded
 lexeme
 lexemes
+matcher
+matchers
+metavariable
+metavariables
 minibuffer
 monad
 monadic
@@ -79,6 +83,7 @@ parsers
 pointfree
 polymorphism
 pragma
+pragmas
 premonoidal
 recurse
 redex
@@ -92,10 +97,14 @@ startup
 stateful
 stderr
 stdout
+struct
+structs
 submodule
+sudo
 symlink
 systemd
 telematics
+tokenization
 tooltip
 toplevel
 tuple
