@@ -28,6 +28,7 @@ in
     modules.mkMerge [
       {
         home.packages = with pkgs; [
+          hyperfine
           lentil
           tokei
         ];

@@ -11,7 +11,6 @@
       [
         du-dust
         duf
-        hyperfine
         procs
       ]
       ++ lib.optional (!pkgs.stdenv.isDarwin) libtree;
