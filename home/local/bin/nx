@@ -7,38 +7,50 @@ main() {
   shift
   case "$cmd" in
     b)
-      cmd='build' ;;
+      cmd='build'
+      ;;
     c)
-      cmd='channel' ;;
+      cmd='channel'
+      ;;
     d)
-      cmd='diff' ;;
+      cmd='diff'
+      ;;
     e)
-      cmd='env' ;;
+      cmd='env'
+      ;;
     ev)
-      cmd='eval' ;;
+      cmd='eval'
+      ;;
     f)
-      cmd='fetch' ;;
+      cmd='fetch'
+      ;;
     q)
-      cmd='query' ;;
+      cmd='query'
+      ;;
     r)
-      cmd='repl' ;;
+      cmd='repl'
+      ;;
     rb)
-      cmd='rebuild' ;;
+      cmd='rebuild'
+      ;;
     st)
-      cmd='store' ;;
-    s|sh)
-      cmd='shell' ;;
+      cmd='store'
+      ;;
+    s | sh)
+      cmd='shell'
+      ;;
     sy)
-      cmd='system' ;;
+      cmd='system'
+      ;;
   esac
 
   case "$cmd" in
-    build|develop|run|search|shell|store)
-      exec nix "$cmd" "$@" ;;
-    channel|collect-garbage|copy-closure|daemon|env|generate-config\
-      |generate-patches|hash|index|info|install-package|instantiate|locate\
-      |log2xml|prefetch-git|prefetch-svn|prefetch-url|pull|push)
-      "nix-${cmd}" "$@" ;;
+    build | develop | run | search | shell | store)
+      exec nix "$cmd" "$@"
+      ;;
+    channel | collect-garbage | copy-closure | daemon | env | generate-config | generate-patches | hash | index | info | install-package | instantiate | locate | log2xml | prefetch-git | prefetch-svn | prefetch-url | pull | push)
+      "nix-${cmd}" "$@"
+      ;;
     help | option | rebuild | version)
       if [[ "$(uname)" == "Darwin" ]]; then
         "darwin-${cmd}" "$@"
@@ -47,37 +59,47 @@ main() {
       fi
       ;;
     build-vms | container | install | prepare-root)
-      "nixos-${cmd}" "$@" ;;
-    fetch|pin|query|sql|update|with)
-      "nx-$cmd" "$@" ;;
+      "nixos-${cmd}" "$@"
+      ;;
+    fetch | pin | query | sql | update | with)
+      "nx-$cmd" "$@"
+      ;;
     diff)
-      exec nix run nixpkgs#nix-diff "$@" ;;
+      exec nix run nixpkgs#nix-diff "$@"
+      ;;
     gc)
-      nix store gc "$@" ;;
-    gen|generations)
+      nix store gc "$@"
+      ;;
+    gen | generations)
       nx-generations "$@"
       ;;
     home)
-      main "$@" --profile ~/.local/state/nix/profiles/home-manager ;;
+      main "$@" --profile ~/.local/state/nix/profiles/home-manager
+      ;;
     installed)
-      nix-env -q --out-path ;;
+      nix-env -q --out-path
+      ;;
     outdated)
       nix-env -u --dry-run 2>&1 | rg '^upgrading' \
         | sed -e 's/^upgrading/  */g' -e "s/'//g" -e 's/ to / -> /g'
       ;;
     open)
-      nx-open "$@" ;;
+      nx-open "$@"
+      ;;
     optimize)
-      nix-store --optimise "$@" ;;
+      nix-store --optimise "$@"
+      ;;
     pp)
-      nix show-derivation "$@" ;;
+      nix show-derivation "$@"
+      ;;
     repl)
       if [[ "$1" == "nixos" ]]; then
         # `config` will contain /etc/nixos/configuration.nix
         nix repl "<${2:-nixpkgs}/nixos>"
       elif [[ "$1" == "flake" ]] && [[ -f flake.lock ]]; then
         local node="${2:? Missing flake node}"
-        shift; shift
+        shift
+        shift
 
         # shellcheck disable=SC2016
         nix repl "$@" --expr '
@@ -94,11 +116,14 @@ main() {
       fi
       ;;
     squash)
-      exec nix store optimise "$@" ;;
+      exec nix store optimise "$@"
+      ;;
     system)
-      main "$@" --profile /nix/var/nix/profiles/system ;;
+      main "$@" --profile /nix/var/nix/profiles/system
+      ;;
     *)
-      nix "$cmd" "$@" ;;
+      nix "$cmd" "$@"
+      ;;
   esac
 }
 
@@ -110,6 +135,7 @@ nx-fetch() {
 nx-generations() {
   echo '* User profile'
   nix-env --list-generations
+
   echo '* System profile'
   if [[ "$(uname)" == "Darwin" ]]; then
     darwin-rebuild --list-generations
@@ -154,7 +180,7 @@ nx-pin() {
   rev="$(nx-revision "$channel")" \
     && url="https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz" \
     && sha256="$(nix-prefetch-url --unpack "$url")" \
-      || return 1
+    || return 1
 
   if [[ -n "$json" ]]; then
     cat <<EOF
@@ -177,30 +203,41 @@ nx-query() {
   local cmd="${1:? Missing query cmd}"
   shift
   case "$cmd" in
-    dep|dependency)
+    dep | dependency)
       local flag
       case "$1" in
-        rev|reverse)
-          flag='--referrers'; shift ;;
-        run|runtime)
-          flag='--references'; shift ;;
-        sys|system)
+        rev | reverse)
+          flag='--referrers'
+          shift
+          ;;
+        run | runtime)
+          flag='--references'
+          shift
+          ;;
+        sys | system)
           nix-store -q --tree "$(nix-instantiate '<nixos/nixos>' -A system)"
-          return ;;
+          return
+          ;;
         tree)
-          flag='--tree'; shift ;;
+          flag='--tree'
+          shift
+          ;;
         *)
           flag='--requisites'
+          ;;
       esac
       nix-store --query "$flag" "$(_paths "$@")"
       ;;
     drv)
-      nix-store --query --deriver "$@" ;;
+      nix-store --query --deriver "$@"
+      ;;
     gcroots)
-      find /nix/var/nix/gcroots -mindepth 1 -type l -print0 | xargs -0 readlink --canonicalize ;;
-    ghc|ghcs)
-      nix-env -qaP -A "${1:-nu}.pkgs.haskell.compiler" | cat ;;
-    ps|profiles)
+      find /nix/var/nix/gcroots -mindepth 1 -type l -print0 | xargs -0 readlink --canonicalize
+      ;;
+    ghc | ghcs)
+      nix-env -qaP -A "${1:-nu}.pkgs.haskell.compiler" | cat
+      ;;
+    ps | profiles)
       for d in "/nix/var/nix/profiles/per-user/$USER"/profile-*; do
         basename "$d"
         nx-query dep "$d" | rg "$1"
@@ -224,7 +261,7 @@ nx-revision() {
 
 nx-sql() {
   nix-shell -p sqliteInteractive --run \
-            "sudo sqlite3 /nix/var/nix/db/db.sqlite '$*'"
+    "sudo sqlite3 /nix/var/nix/db/db.sqlite '$*'"
 }
 
 nx-update() {
@@ -236,9 +273,9 @@ nx-update() {
 
   mkdir -p "$(dirname "$_NX_PACKAGES")"
   {
-    nix-env -f "$_channel" -qaP '*' --description;
-    nix-env -f "$_channel" -qaP -A 'haskellPackages' --description;
-  } > "$_NX_PACKAGES"
+    nix-env -f "$_channel" -qaP '*' --description
+    nix-env -f "$_channel" -qaP -A 'haskellPackages' --description
+  } >"$_NX_PACKAGES"
 
   nix registry add nu "github:NixOS/nixpkgs/$(nx-revision "$_channel_name")"
 }
@@ -252,8 +289,8 @@ nx-with() {
   local pkgcmd="${1:? Missing package:command}"
   shift
   local pkg cmd
-  pkg="$(cut -d : -f 1    <<< "$pkgcmd")"
-  cmd="$(cut -d : -f 2 -s <<< "$pkgcmd")"
+  pkg="$(cut -d : -f 1 <<<"$pkgcmd")"
+  cmd="$(cut -d : -f 2 -s <<<"$pkgcmd")"
 
   if [[ -n "$cmd" ]]; then
     nix shell "nixpkgs#$pkg" --command "$cmd" "$@"
