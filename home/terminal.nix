@@ -37,10 +37,10 @@ in
     };
 
     home.sessionVariables = {
-      INPUTRC = "$XDG_CONFIG_HOME/readline/inputrc";
+      INPUTRC = "${config.xdg.cacheHome}/readline/inputrc";
 
-      PSQLRC = "$XDG_CONFIG_HOME/psql/psqlrc";
-      PSQL_HISTORY = "$XDG_DATA_HOME/psql/history";
+      PSQLRC = "${config.xdg.cacheHome}/psql/psqlrc";
+      PSQL_HISTORY = "${config.xdg.dataHome}/psql/history";
     };
   };
 }
