@@ -97,8 +97,6 @@ main() {
       exec nix store optimise "$@" ;;
     system)
       main "$@" --profile /nix/var/nix/profiles/system ;;
-    upgrade)
-      nixos-rebuild switch --upgrade "$@" ;;
     *)
       nix "$cmd" "$@" ;;
   esac
