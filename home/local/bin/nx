@@ -39,7 +39,14 @@ main() {
       |generate-patches|hash|index|info|install-package|instantiate|locate\
       |log2xml|prefetch-git|prefetch-svn|prefetch-url|pull|push)
       "nix-${cmd}" "$@" ;;
-    build-vms|container|help|install|option|prepare-root|rebuild|version)
+    help | option | rebuild | version)
+      if [[ "$(uname)" == "Darwin" ]]; then
+        "darwin-${cmd}" "$@"
+      else
+        "nixos-${cmd}" "$@"
+      fi
+      ;;
+    build-vms | container | install | prepare-root)
       "nixos-${cmd}" "$@" ;;
     fetch|pin|query|sql|update|with)
       "nx-$cmd" "$@" ;;
@@ -106,7 +113,11 @@ nx-generations() {
   echo '* User profile'
   nix-env --list-generations
   echo '* System profile'
-  nixos-rebuild list-generations | cat
+  if [[ "$(uname)" == "Darwin" ]]; then
+    darwin-rebuild --list-generations
+  else
+    nixos-rebuild list-generations | cat
+  fi
 }
 
 nx-open() {
