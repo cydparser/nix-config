@@ -75,11 +75,7 @@ in
       ];
 
       home.sessionVariables = {
-        EDITOR = lib.getBin (
-          pkgs.writeShellScript "editor" ''
-            exec ${lib.getBin config.programs.emacs.package}/bin/emacsclient "''${@:---create-frame}"
-          ''
-        );
+        EDITOR = "${config.programs.emacs.package}/bin/emacsclient";
       };
     };
 }
