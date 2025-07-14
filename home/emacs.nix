@@ -69,7 +69,7 @@ in
       home.packages = with pkgs; [
         cask
         espeak
-        (hunspell.withDicts [ hunspellDicts.en-us ])
+        (hunspell.withDicts (d: [ d.en-us ]))
         sdcv
         wordnet
       ];
