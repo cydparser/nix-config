@@ -26,6 +26,10 @@
       home-manager = {
         verbose = true;
 
+        extraSpecialArgs = {
+          inherit (flake-inputs) iterm2-color-schemes;
+        };
+
         # Install packages to /etc/profiles; needed to run `nixos-rebuild build-vm`.
         useUserPackages = true;
 
@@ -36,7 +40,7 @@
           { ... }:
           {
             imports = [
-              flake-inputs.nix-index-database.hmModules.nix-index
+              flake-inputs.nix-index-database.homeModules.nix-index
               ../home/default.nix
             ];
 

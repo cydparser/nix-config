@@ -26,6 +26,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    iterm2-color-schemes = {
+      url = "github:mbadolato/iTerm2-Color-Schemes";
+      flake = false;
+    };
+
     nix-darwin = {
       # Exclude "The Plan" (https://github.com/nix-darwin/nix-darwin/pull/1341)
       url = "github:nix-darwin/nix-darwin/8817b00b0011750381d0d44bb94d61087349b6ba";
@@ -119,7 +124,9 @@
           pkgs = importNixpkgs flake-utils.lib.system.aarch64-darwin;
 
           specialArgs = {
-            flake-inputs = lib.attrsets.getAttrs [ "home-manager" "nix-index-database" ] inputs;
+            flake-inputs = {
+              inherit (inputs) home-manager iterm2-color-schemes nix-index-database;
+            };
           };
 
           system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -137,7 +144,7 @@
 
           specialArgs = {
             flake-inputs = {
-              inherit (inputs) home-manager nix-index-database;
+              inherit (inputs) home-manager iterm2-color-schemes nix-index-database;
             };
           };
 
@@ -152,7 +159,12 @@
 
           specialArgs = {
             flake-inputs = {
-              inherit (inputs) home-manager nixos-wsl nix-index-database;
+              inherit (inputs)
+                home-manager
+                iterm2-color-schemes
+                nixos-wsl
+                nix-index-database
+                ;
             };
           };
 
