@@ -1,7 +1,6 @@
 inputs@{
   config,
   lib,
-  osConfig ? { },
   pkgs,
   ...
 }:
@@ -47,7 +46,7 @@ in
           package =
             if pkgs.stdenv.isDarwin then
               emacs-darwin
-            else if utils.isWayland osConfig then
+            else if utils.isWayland then
               pkgs.emacs-pgtk
             else
               pkgs.emacs;

@@ -13,7 +13,7 @@ in
     enable = utils.mkEnable "vscode";
 
     server = lib.mkEnableOption "vscode-server" // {
-      default = utils.isWsl osConfig;
+      default = utils.isWsl;
     };
   };
 
