@@ -2,10 +2,10 @@ set-option -g default-shell $SHELL
 
 set-option -ga update-environment ' DOCKER_HOST DOCKER_CERT_PATH DOCKER_TLS_VERIFY'
 
-set -g status-bg black
+set -g status-bg color232
 set -g status-fg white
 
-set-option -ga terminal-overrides ",xterm-termite:Tc:smso=[3m"
+set-option -ga terminal-overrides ",screen-256color:Tc"
 
 set -g status-right '#[fg=green]%Y-%m-%d %a #[fg=white]%H:%M'
 
@@ -13,10 +13,7 @@ set-window-option -g window-status-current-format '#[fg=white:bold]#{window_inde
 
 set-window-option -g window-status-format         '#[fg=green]#{window_index}#[fg=blue]:#{pane_current_command}:#(basename "#{pane_current_path}") '
 
-unbind C-b
-set -g prefix C-c
 set -g prefix2 C-x
-bind C-c send-prefix
 bind C-x send-prefix -2
 bind C-n next-window
 bind C-p previous-window
