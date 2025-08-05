@@ -62,7 +62,7 @@ in
 
       xdg.configFile = {
         "hunspell/en_US".source =
-          config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/src/nix-config/home/config/hunspell/en_US";
+          config.lib.file.mkOutOfStoreSymlink "${config.nix-config.src}/home/config/hunspell/en_US";
       };
 
       home.packages = with pkgs; [

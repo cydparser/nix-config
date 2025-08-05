@@ -1,3 +1,4 @@
+{ config, lib, ... }:
 {
   imports = [
     ./core.nix
@@ -15,6 +16,18 @@
     ./vscode.nix
     ./xmonad.nix
   ];
+
+  options.nix-config =
+    let
+      inherit (lib) mkOption types;
+    in
+    {
+      src = mkOption {
+        type = types.str;
+        description = "Source code location";
+        default = "${config.home.homeDirectory}/src/nix-config";
+      };
+    };
 
   config = {
     programs = {
