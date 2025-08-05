@@ -39,10 +39,12 @@
             init-rustup = ''
               [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
             '';
-            in {
-          programs.bash.profileExtra = init-rustup;
-          programs.zsh.envExtra = init-rustup;
-        }))
+          in
+          {
+            programs.bash.profileExtra = init-rustup;
+            programs.zsh.envExtra = init-rustup;
+          }
+        ))
       ]
     );
 }

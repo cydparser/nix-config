@@ -15,16 +15,15 @@
       ]
       ++ lib.optional (!pkgs.stdenv.isDarwin) libtree;
 
-    home.file =
-      {
-        ".local/bin" = {
-          source = local/bin;
-          recursive = true;
-        };
-      }
-      // lib.optionalAttrs pkgs.stdenv.isDarwin {
-        "Pictures/Screenshots/.keep".text = "";
+    home.file = {
+      ".local/bin" = {
+        source = local/bin;
+        recursive = true;
       };
+    }
+    // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      "Pictures/Screenshots/.keep".text = "";
+    };
 
     home.sessionPath = [
       "$HOME/.local/bin"
