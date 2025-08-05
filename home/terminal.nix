@@ -21,41 +21,6 @@ in
 
           fonts = {
             family = "IosevkaTerm Nerd Font";
-            # hinting = true;
-            # size = 18;
-            # features = [];
-            # use-drawable-chars = true;
-            # symbol-map = [];
-            # disable-warnings-not-found = false;
-            # additional-dirs = [];
-
-            # regular = {
-            # family = "cascadiacode";
-            # style = "Normal";
-            # width = "Normal";
-            # weight = 400;
-            # };
-
-            # bold = {
-            # family = "cascadiacode";
-            # style = "Normal";
-            # width = "Normal";
-            # weight = 800;
-            # };
-
-            # italic = {
-            # family = "cascadiacode";
-            # style = "Italic";
-            # width = "Normal";
-            # weight = 400;
-            # };
-
-            # bold-italic = {
-            # family = "cascadiacode";
-            # style = "Italic";
-            # width = "Normal";
-            # weight = 800;
-            # };
           };
 
           # hide-mouse-cursor-when-typing = false;
@@ -64,6 +29,8 @@ in
             mode = "Plain";
             use-split = false;
           };
+
+          option-as-alt = "both";
 
           theme = "jellybeans";
         };
