@@ -78,7 +78,7 @@
           ttl = 9 * 60 * 60;
         in
         {
-          enable = true;
+          enable = false;
           defaultCacheTtl = ttl;
           defaultCacheTtlSsh = ttl;
           maxCacheTtl = ttl;
