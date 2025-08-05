@@ -49,7 +49,6 @@ in
         focusEvents = true;
         historyLimit = 8192;
         mouse = true;
-        prefix = "C-c";
         secureSocket = true;
         terminal = "screen-256color";
       };
