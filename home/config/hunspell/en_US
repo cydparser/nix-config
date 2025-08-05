@@ -38,6 +38,8 @@ covariant
 cryptographic
 cryptologic
 dataflow
+deallocate
+deallocated
 desugared
 encodings
 existentials
@@ -96,6 +98,7 @@ splittable
 startup
 stateful
 stderr
+stdin
 stdout
 struct
 structs
