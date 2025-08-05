@@ -65,7 +65,8 @@ in
 
       "rio/themes".source = "${iterm2-color-schemes}/rio";
 
-      "${tmux-extra-conf}".source = config/tmux/conf;
+      "${tmux-extra-conf}".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.nix-config.src}/home/config/${tmux-extra-conf}";
     };
 
     home.sessionVariables = {
