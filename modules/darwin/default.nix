@@ -20,6 +20,13 @@
           enableKeyMapping = true;
           remapCapsLockToControl = true;
           # NB: Setting swapLeftCommandAndLeftAlt affects all keyboards;
+          userKeyMapping = [
+            # Remap right command to right control.
+            {
+              HIDKeyboardModifierMappingSrc = 30064771303;
+              HIDKeyboardModifierMappingDst = 30064771300;
+            }
+          ];
         };
 
         defaults = {
