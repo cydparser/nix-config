@@ -65,13 +65,19 @@ in
           config.lib.file.mkOutOfStoreSymlink "${config.nix-config.src}/home/config/hunspell/en_US";
       };
 
-      home.packages = with pkgs; [
-        cask
-        espeak
-        (hunspell.withDicts (d: [ d.en-us ]))
-        sdcv
-        wordnet
-      ];
+      home.packages =
+        with pkgs;
+        [
+          cask
+          espeak
+          (hunspell.withDicts (d: [ d.en-us ]))
+          sdcv
+          wordnet
+        ]
+        ++ lib.optionals pkgs.stdenv.isDarwin [
+          # `insert-directory-program` needs `gls`.
+          coreutils-prefixed
+        ];
 
       home.sessionVariables = {
         EDITOR = "${config.programs.emacs.package}/bin/emacsclient";
