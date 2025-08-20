@@ -20,10 +20,11 @@
           enableKeyMapping = true;
           remapCapsLockToControl = true;
           # NB: Setting swapLeftCommandAndLeftAlt affects all keyboards;
+          # Lookup codes at: https://hidutil-generator.netlify.app
           userKeyMapping = [
-            # Remap right command to right control.
+            # Remap right option to right control.
             {
-              HIDKeyboardModifierMappingSrc = 30064771303;
+              HIDKeyboardModifierMappingSrc = 30064771302;
               HIDKeyboardModifierMappingDst = 30064771300;
             }
           ];
