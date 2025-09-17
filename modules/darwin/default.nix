@@ -57,6 +57,8 @@
 
           WindowManager.EnableTiledWindowMargins = false;
         };
+
+        primaryUser = cfg.username;
       };
     };
 }
