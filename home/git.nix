@@ -77,6 +77,10 @@ in
               sp = "stash pop";
               ss = "stash save";
               sspp = "!git stash save && git pull && git stash pop";
+              # Submodules
+              smdiff = "!git diff && git submodule foreach 'git diff'";
+              smpush = "push --recurse-submodules=on-demand";
+              smrebase = "submodule update --remote --rebase";
             };
             delta = {
               enable = true;
@@ -93,7 +97,10 @@ in
 
               branch.autosetuprebase = "always";
 
-              diff.colorMoved = "dimmed-zebra";
+              diff = {
+                colorMoved = "dimmed-zebra";
+                submodule = "log";
+              };
 
               init.defaultBranch = "main";
 
@@ -102,6 +109,8 @@ in
               merge.conflictstyle = "diff3";
 
               push.default = "tracking";
+
+              submodule.recurse = true;
 
               tag.sort = "version:refname";
 
