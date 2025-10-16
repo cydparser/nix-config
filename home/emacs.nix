@@ -68,7 +68,6 @@ in
       home.packages =
         with pkgs;
         [
-          cask
           espeak
           (hunspellWithDicts [ hunspellDicts.en-us ])
           sdcv
