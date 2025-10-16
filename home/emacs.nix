@@ -70,7 +70,7 @@ in
         [
           cask
           espeak
-          (hunspell.withDicts (d: [ d.en-us ]))
+          (hunspellWithDicts [ hunspellDicts.en-us ])
           sdcv
           wordnet
         ]
