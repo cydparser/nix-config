@@ -26,15 +26,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager-darwin = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+
     iterm2-color-schemes = {
       url = "github:mbadolato/iTerm2-Color-Schemes";
       flake = false;
     };
 
     nix-darwin = {
-      # Exclude "The Plan" (https://github.com/nix-darwin/nix-darwin/pull/1341)
-      url = "github:nix-darwin/nix-darwin/8817b00b0011750381d0d44bb94d61087349b6ba";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     nix-index-database = {
@@ -43,6 +47,8 @@
     };
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -67,7 +73,10 @@
       forEachSystem = lib.genAttrs systems;
 
       importNixpkgs =
-        system:
+        {
+          system,
+          nixpkgs ? inputs.nixpkgs,
+        }:
         import nixpkgs {
           inherit system;
 
@@ -121,11 +130,15 @@
 
       darwinConfigurations = {
         "moon" = inputs.nix-darwin.lib.darwinSystem {
-          pkgs = importNixpkgs flake-utils.lib.system.aarch64-darwin;
+          pkgs = importNixpkgs {
+            system = flake-utils.lib.system.aarch64-darwin;
+            nixpkgs = inputs.nixpkgs-darwin;
+          };
 
           specialArgs = {
             flake-inputs = {
-              inherit (inputs) home-manager iterm2-color-schemes nix-index-database;
+              inherit (inputs) iterm2-color-schemes nix-index-database;
+              home-manager = inputs.home-manager-darwin;
             };
           };
 
@@ -140,7 +153,7 @@
 
       nixosConfigurations = {
         vbox = lib.nixosSystem {
-          pkgs = importNixpkgs flake-utils.lib.system.x86_64-linux;
+          pkgs = importNixpkgs { system = flake-utils.lib.system.x86_64-linux; };
 
           specialArgs = {
             flake-inputs = {
@@ -155,7 +168,7 @@
         };
 
         wsl = lib.nixosSystem {
-          pkgs = importNixpkgs flake-utils.lib.system.x86_64-linux;
+          pkgs = importNixpkgs { system = flake-utils.lib.system.x86_64-linux; };
 
           specialArgs = {
             flake-inputs = {
@@ -184,7 +197,7 @@
       devShells = forEachSystem (
         system:
         let
-          pkgs = importNixpkgs system;
+          pkgs = importNixpkgs { inherit system; };
         in
         {
           default = inputs.devenv.lib.mkShell {
