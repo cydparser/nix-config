@@ -110,8 +110,6 @@ in
 
               push.default = "tracking";
 
-              submodule.recurse = true;
-
               tag.sort = "version:refname";
 
               magit.hideCampaign = true;
