@@ -9,6 +9,11 @@
   };
 
   inputs = {
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     devenv = {
       url = "github:cachix/devenv";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -145,6 +150,7 @@
           system.configurationRevision = self.rev or self.dirtyRev or null;
 
           modules = [
+            inputs.determinate.darwinModules.default
             self.darwinModules.default
             hosts/moon.nix
           ];

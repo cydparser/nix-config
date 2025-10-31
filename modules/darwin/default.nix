@@ -15,6 +15,16 @@
       cfg = config.nix-config;
     in
     {
+      nix = {
+        # Let Determinate Nix handle Nix configuration.
+        enable = false;
+      };
+
+      # Custom settings written to /etc/nix/nix.custom.conf
+      determinate-nix.customSettings = {
+        inherit (config.nix.settings) keep-derivations keep-outputs trusted-users;
+      };
+
       system = {
         keyboard = {
           enableKeyMapping = true;
