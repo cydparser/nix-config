@@ -10,6 +10,7 @@
     ./jujutsu.nix
     ./nix.nix
     ./nushell.nix
+    ./package.nix
     ./rust.nix
     ./shell.nix
     ./terminal.nix
