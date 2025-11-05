@@ -1,6 +1,7 @@
 {
   config,
   flake-inputs,
+  pkgs,
   ...
 }:
 {
@@ -23,6 +24,12 @@
       # Custom settings written to /etc/nix/nix.custom.conf
       determinate-nix.customSettings = {
         inherit (config.nix.settings) keep-derivations keep-outputs trusted-users;
+      };
+
+      environment = {
+        systemPackages = with pkgs; [
+          less
+        ];
       };
 
       system = {
