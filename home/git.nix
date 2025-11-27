@@ -87,6 +87,7 @@ in
               options = {
                 navigate = true;
                 side-by-side = true;
+                syntax-themes = "Visual Studio Dark+";
               };
             };
 
