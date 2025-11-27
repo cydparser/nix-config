@@ -57,6 +57,9 @@ in
     xdg.configFile = {
       "alacritty/alacritty.yml".source = config/alacritty/alacritty.yml;
 
+      "ghostty/config".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.nix-config.src}/home/config/ghostty/config";
+
       "termite/config".source = config/termite/config;
 
       "psql/psqlrc".source = config/psql/psqlrc;
