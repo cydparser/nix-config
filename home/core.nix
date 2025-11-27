@@ -9,8 +9,8 @@
     home.packages =
       with pkgs;
       [
-        du-dust
         duf
+        dust
         procs
       ]
       ++ lib.optional (!pkgs.stdenv.isDarwin) libtree;

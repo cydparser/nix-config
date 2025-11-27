@@ -45,7 +45,7 @@ in
       })
       (mkIf cfg.toml.enable {
         home.packages = with pkgs; [
-          taplo-lsp
+          taplo
         ];
       })
       (mkIf cfg.yaml.enable {
