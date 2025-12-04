@@ -29,6 +29,7 @@ in
       {
         home.packages = with pkgs; [
           hyperfine
+          just
           lentil
           tokei
         ];
