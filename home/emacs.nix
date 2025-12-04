@@ -69,7 +69,7 @@ in
         with pkgs;
         [
           espeak
-          (hunspellWithDicts [ hunspellDicts.en-us ])
+          (hunspell.withDicts (d: [ d.en-us ]))
           sdcv
           wordnet
         ]
