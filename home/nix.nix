@@ -14,18 +14,25 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      cachix
-      devenv
-      nil
-      nix-output-monitor
-      nix-prefetch-git
-      nixfmt-rfc-style
-      npins
-      nurl
-      statix
-      vulnix
-    ];
-  };
+  config = lib.modules.mkMerge [
+    {
+      home.packages = with pkgs; [
+        nix-output-monitor
+        nh
+      ];
+    }
+    (lib.mkIf cfg.enable {
+      home.packages = with pkgs; [
+        cachix
+        devenv
+        nil
+        nix-prefetch-git
+        nixfmt-rfc-style
+        npins
+        nurl
+        statix
+        vulnix
+      ];
+    })
+  ];
 }
