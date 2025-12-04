@@ -40,6 +40,7 @@ cryptologic
 dataflow
 deallocate
 deallocated
+dereferencing
 desugared
 encodings
 existentials
@@ -77,6 +78,8 @@ monomorphism
 natively
 newtype
 normalizer
+nullable
+nullary
 overlappable
 parallelize
 parameterised
