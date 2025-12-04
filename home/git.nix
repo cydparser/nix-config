@@ -36,84 +36,89 @@ in
 
           programs.git = {
             enable = cfg.enable;
-            userName = cfg.user.name;
-            userEmail = cfg.user.email;
 
-            aliases = rec {
-              # Branch
-              b = "branch";
-              feature = "!git checkout -b $1 && git push origin -u";
-              # Checkout
-              co = "checkout";
-              track = "!f() { local b=$1; local remote=$${2:-origin}; git checkout --track -b $b $remote/$b; }; f";
-              # Commit
-              cm = "commit -m";
-              # Diff
-              d = "diff";
-              dc = "diff --cached";
-              dn = "diff --name-only";
-              dp = "!git diff --no-merges @{1}..";
-              dt = "difftool";
-              dw = "diff --word-diff";
-              # Log
-              l = "log --oneline --decorate --simplify-merges";
-              lb = "log --pretty=format:'%ad %C(yellow)%h %Cred%an%Cblue%d %Creset%s' --date=short";
-              lg = "log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\"";
-              lp = "${lb} --no-merges @{1}..";
-              lf = "log --all --";
-              # Rebase
-              r = "rebase";
-              ri = "rebase -i";
-              ra = "rebase --abort";
-              rc = "rebase --continue";
-              # Revert
-              rollback = "reset HEAD^";
-              unrm = "checkout HEAD";
-              unstage = "reset";
-              # Stash
-              s = "status -sb";
-              sd = "stash drop";
-              sl = "stash list";
-              sp = "stash pop";
-              ss = "stash save";
-              sspp = "!git stash save && git pull && git stash pop";
-              # Submodules
-              smdiff = "!git diff && git submodule foreach 'git diff'";
-              smpush = "push --recurse-submodules=on-demand";
-              smrebase = "submodule update --remote --rebase";
-            };
-            delta = {
-              enable = true;
-              options = {
-                navigate = true;
-                side-by-side = true;
-                syntax-themes = "Visual Studio Dark+";
-              };
-            };
-
-            extraConfig = {
-              apply.whitespace = "fix";
-
-              color.ui = true;
-
-              branch.autosetuprebase = "always";
-
-              diff = {
-                colorMoved = "dimmed-zebra";
-                submodule = "log";
+            settings = {
+              user = {
+                name = cfg.user.name;
+                email = cfg.user.email;
               };
 
-              init.defaultBranch = "main";
+              aliases = rec {
+                # Branch
+                b = "branch";
+                feature = "!git checkout -b $1 && git push origin -u";
+                # Checkout
+                co = "checkout";
+                track = "!f() { local b=$1; local remote=$${2:-origin}; git checkout --track -b $b $remote/$b; }; f";
+                # Commit
+                cm = "commit -m";
+                # Diff
+                d = "diff";
+                dc = "diff --cached";
+                dn = "diff --name-only";
+                dp = "!git diff --no-merges @{1}..";
+                dt = "difftool";
+                dw = "diff --word-diff";
+                # Log
+                l = "log --oneline --decorate --simplify-merges";
+                lb = "log --pretty=format:'%ad %C(yellow)%h %Cred%an%Cblue%d %Creset%s' --date=short";
+                lg = "log --graph --full-history --all --color --pretty=format:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\"";
+                lp = "${lb} --no-merges @{1}..";
+                lf = "log --all --";
+                # Rebase
+                r = "rebase";
+                ri = "rebase -i";
+                ra = "rebase --abort";
+                rc = "rebase --continue";
+                # Revert
+                rollback = "reset HEAD^";
+                unrm = "checkout HEAD";
+                unstage = "reset";
+                # Stash
+                s = "status -sb";
+                sd = "stash drop";
+                sl = "stash list";
+                sp = "stash pop";
+                ss = "stash save";
+                sspp = "!git stash save && git pull && git stash pop";
+                # Submodules
+                smdiff = "!git diff && git submodule foreach 'git diff'";
+                smpush = "push --recurse-submodules=on-demand";
+                smrebase = "submodule update --remote --rebase";
+              };
+              delta = {
+                enable = true;
+                options = {
+                  navigate = true;
+                  side-by-side = true;
+                  syntax-themes = "Visual Studio Dark+";
+                };
+              };
 
-              log.date = "local";
+              extraConfig = {
+                apply.whitespace = "fix";
 
-              merge.conflictstyle = "diff3";
+                color.ui = true;
 
-              push.default = "tracking";
+                branch.autosetuprebase = "always";
 
-              tag.sort = "version:refname";
+                diff = {
+                  colorMoved = "dimmed-zebra";
+                  submodule = "log";
+                };
 
-              magit.hideCampaign = true;
+                init.defaultBranch = "main";
+
+                log.date = "local";
+
+                merge.conflictstyle = "diff3";
+
+                push.default = "tracking";
+
+                tag.sort = "version:refname";
+
+                magit.hideCampaign = true;
+              };
             };
 
             lfs = {
@@ -131,6 +136,11 @@ in
               "tmp"
             ];
           };
+
+          programs.delta = {
+            enable = true;
+            enableGitIntegration = true;
+          };
         }
         (mkIf utils.isWsl {
           programs.git = {
@@ -140,18 +150,20 @@ in
           };
         })
         (mkIf cfg.difftastic.enable {
-          home.packages = [ pkgs.difftastic ];
+          programs = {
+            git.settings = {
+              extraConfig = {
+                diff.tool = "difftastic";
 
-          programs.git = {
-            extraConfig = {
-              diff.tool = "difftastic";
+                difftool.prompt = false;
 
-              difftool.prompt = false;
+                "difftool \"difftastic\"".cmd = "difft \"$LOCAL\" \"$REMOTE\"";
 
-              "difftool \"difftastic\"".cmd = "difft \"$LOCAL\" \"$REMOTE\"";
-
-              pager.difftool = true;
+                pager.difftool = true;
+              };
             };
+
+            difftastic.enable = true;
           };
         })
       ]
