@@ -43,7 +43,7 @@ in
                 email = cfg.user.email;
               };
 
-              aliases = rec {
+              alias = rec {
                 # Branch
                 b = "branch";
                 feature = "!git checkout -b $1 && git push origin -u";
