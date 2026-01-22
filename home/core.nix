@@ -12,6 +12,7 @@
         duf
         dust
         procs
+        zstd
       ]
       ++ lib.optional (!pkgs.stdenv.isDarwin) libtree;
 
