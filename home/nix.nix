@@ -27,7 +27,7 @@ in
         devenv
         nil
         nix-prefetch-git
-        nixfmt-rfc-style
+        nixfmt
         npins
         nurl
         statix

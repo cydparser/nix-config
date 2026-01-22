@@ -212,7 +212,7 @@
             modules = [
               {
                 git-hooks.hooks = {
-                  nixfmt-rfc-style = {
+                  nixfmt = {
                     enable = true;
                   };
                 };
