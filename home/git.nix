@@ -95,30 +95,28 @@ in
                 };
               };
 
-              extraConfig = {
-                apply.whitespace = "fix";
+              apply.whitespace = "fix";
 
-                color.ui = true;
+              color.ui = true;
 
-                branch.autosetuprebase = "always";
+              branch.autosetuprebase = "always";
 
-                diff = {
-                  colorMoved = "dimmed-zebra";
-                  submodule = "log";
-                };
-
-                init.defaultBranch = "main";
-
-                log.date = "local";
-
-                merge.conflictstyle = "diff3";
-
-                push.default = "tracking";
-
-                tag.sort = "version:refname";
-
-                magit.hideCampaign = true;
+              diff = {
+                colorMoved = "dimmed-zebra";
+                submodule = "log";
               };
+
+              init.defaultBranch = "main";
+
+              log.date = "local";
+
+              merge.conflictstyle = "diff3";
+
+              push.default = "tracking";
+
+              tag.sort = "version:refname";
+
+              magit.hideCampaign = true;
             };
 
             lfs = {
