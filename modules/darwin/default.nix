@@ -22,7 +22,7 @@
       };
 
       # Custom settings written to /etc/nix/nix.custom.conf
-      determinate-nix.customSettings = {
+      determinateNix.customSettings = {
         inherit (config.nix.settings) keep-derivations keep-outputs trusted-users;
       };
 
