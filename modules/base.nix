@@ -35,7 +35,7 @@ in
         # Remove warning about non-existent channel.
         nix-path = "nixpkgs=flake:nixpkgs";
 
-        trusted-users = [ cfg.username ];
+        trusted-users = [ "root" cfg.username ];
 
         upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
       };
