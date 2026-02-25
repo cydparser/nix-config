@@ -13,10 +13,7 @@ in
     ../users/cyd.nix
   ];
 
-  fileSystems."/mnt/x" = {
-    device = "/dev/disk/by-uuid/02f1f1c0-ed69-43c6-89fd-560fd26be8b8";
-    fsType = "ext4";
-  };
+  boot.initrd.systemd.enable = true;
 
   networking.hostName = "wsl";
 
@@ -26,9 +23,11 @@ in
 
   programs.nix-ld = {
     enable = true;
-    package = pkgs.nix-ld-rs;
   };
 
+  services.userborn.enable = true;
+
+  system.etc.overlay.enable = true;
   system.stateVersion = "24.05";
 
   wsl = {
