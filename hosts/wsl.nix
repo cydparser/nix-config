@@ -13,8 +13,6 @@ in
     ../users/cyd.nix
   ];
 
-  boot.initrd.systemd.enable = true;
-
   networking.hostName = "wsl";
 
   nix-config = {
@@ -25,10 +23,7 @@ in
     enable = true;
   };
 
-  services.userborn.enable = true;
-
-  system.etc.overlay.enable = true;
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.11";
 
   wsl = {
     enable = true;
