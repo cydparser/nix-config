@@ -68,8 +68,6 @@
         }))
         {
           home.file = {
-            ".ghci".source = ./ghci;
-
             ".haskeline".source = ./haskeline;
 
             ".hlint.yaml".source = ./hlint.yaml;
@@ -83,6 +81,8 @@
             "brittany/config.yaml".source = config/brittany/config.yaml;
 
             "fourmolu.yaml".source = config/fourmolu.yaml;
+
+            ".ghci".source = config/ghci;
 
             "stylish-haskell/config.yaml".source = config/stylish-haskell/config.yaml;
           };
