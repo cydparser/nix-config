@@ -14,7 +14,7 @@ in
   config = {
     programs = {
       rio = {
-        enable = !isWsl;
+        enable = false;
 
         settings = {
           editor.program = "${config.programs.emacs.package}/bin/emacsclient";
