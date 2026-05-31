@@ -32,6 +32,7 @@
             cargo-expand
             cargo-nextest
             # cargo-semver-checks
+            cargo-show-asm
           ];
         }
         (mkIf pkgs.stdenv.isDarwin (
