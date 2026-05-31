@@ -70,6 +70,11 @@
           fileWidgetCommand = "${fd} --type f";
           tmux.enableShellIntegration = true;
         };
+
+      nh = {
+        enable = true;
+        flake = "~/src/nix-config";
+      };
     };
 
     services = {

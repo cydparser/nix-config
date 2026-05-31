@@ -18,7 +18,6 @@ in
     {
       home.packages = with pkgs; [
         nix-output-monitor
-        nh
       ];
     }
     (lib.mkIf cfg.enable {
