@@ -24,8 +24,8 @@ in
       home.packages = with pkgs; [
         cachix
         devenv
-        nil
         nix-prefetch-git
+        nixd
         nixfmt
         npins
         nurl
