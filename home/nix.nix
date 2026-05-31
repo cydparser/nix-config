@@ -25,6 +25,7 @@ in
         cachix
         devenv
         nix-prefetch-git
+        nix-tree
         nixd
         nixfmt
         npins
