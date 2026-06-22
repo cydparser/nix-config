@@ -27,6 +27,8 @@ in
       zsh = {
         enable = pkgs.stdenv.isDarwin;
 
+        dotDir = "${config.xdg.configHome}/zsh";
+
         history = {
           extended = true;
           ignoreDups = true;
