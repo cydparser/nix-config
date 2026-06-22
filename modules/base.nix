@@ -41,6 +41,8 @@ in
         ];
 
         upgrade-nix-store-path-url = "https://install.determinate.systems/nix-upgrade/stable/universal";
+
+        use-xdg-base-directories = true;
       };
     };
   };
