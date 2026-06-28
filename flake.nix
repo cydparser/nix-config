@@ -86,6 +86,7 @@
           inherit system;
 
           overlays = [
+            inputs.devenv.overlays.default
             inputs.emacs-overlay.overlays.package
             overlay
           ];
