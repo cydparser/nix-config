@@ -24,6 +24,7 @@ TLS
 WHNF
 associativity
 backend
+callee
 cardinalities
 cardinality
 centre
@@ -43,6 +44,7 @@ deallocated
 dereferencing
 desugared
 encodings
+enums
 existentials
 filename
 filenames
@@ -107,6 +109,7 @@ struct
 structs
 submodule
 sudo
+supertrait
 symlink
 systemd
 telematics
@@ -118,6 +121,7 @@ tuples
 typeclass
 typeclass
 unary
+uncallable
 undecorated
 unoptimised
 username
