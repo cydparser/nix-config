@@ -53,6 +53,7 @@ in
 
           extraPackages =
             ps: with ps; [
+              jinx
               pdf-tools
               treesit-grammars.with-all-grammars
               vterm
