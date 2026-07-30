@@ -1,0 +1,15 @@
+excludes = ["*.lock"]
+
+[formatter.nix]
+command = "nixfmt"
+includes = ["*.nix"]
+
+[formatter.shell]
+command = "shfmt"
+options = []
+includes = ["home/local/bin/*"]
+
+[formatter.yaml]
+command = "yamlfmt"
+options = []
+includes = ["*.ya?ml"]

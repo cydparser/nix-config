@@ -14,13 +14,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    devenv = {
-      url = "github:cachix/devenv";
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -86,7 +86,6 @@
           inherit system;
 
           overlays = [
-            inputs.devenv.overlays.default
             inputs.emacs-overlay.overlays.package
             overlay
           ];
@@ -195,11 +194,34 @@
         };
       };
 
-      packages = forEachSystem (system: {
-        devenv-up = self.devShells.${system}.default.config.procfileScript;
+      checks = forEachSystem (
+        system:
+        let
+          pkgs = importNixpkgs { inherit system; };
+        in
+        {
+          pre-commit = inputs.git-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              custom = {
+                enable = true;
+                name = "custom";
+                entry = "${scripts/pre-commit}";
+                pass_filenames = false;
+              };
 
-        devenv-test = self.devShells.${system}.default.config.test;
-      });
+              treefmt = {
+                enable = true;
+                settings.formatters = with pkgs; [
+                  nixfmt
+                  shfmt
+                  yamlfmt
+                ];
+              };
+            };
+          };
+        }
+      );
 
       devShells = forEachSystem (
         system:
@@ -207,29 +229,23 @@
           pkgs = importNixpkgs { inherit system; };
         in
         {
-          default = inputs.devenv.lib.mkShell {
-            inherit inputs pkgs;
+          default = pkgs.mkShell {
+            buildInputs = self.checks.${system}.pre-commit.enabledPackages;
 
-            modules = [
-              {
-                git-hooks.hooks = {
-                  nixfmt = {
-                    enable = true;
-                  };
-                };
-
-                languages = {
-                  nix = {
-                    enable = true;
-                    lsp.package = pkgs.nixd;
-                  };
-                };
-
-                packages = [ ];
-              }
-            ];
+            shellHook = self.checks.${system}.pre-commit.shellHook;
           };
         }
+      );
+
+      formatter = forEachSystem (
+        system:
+        let
+          pkgs = importNixpkgs { inherit system; };
+          config = self.checks.${system}.pre-commit.config;
+        in
+        pkgs.writeShellScriptBin "pre-commit-run" ''
+          ${pkgs.lib.getExe config.package} run --all-files --config ${config.configFile}
+        ''
       );
     };
 }

@@ -1,5 +1,4 @@
 host.nix
 result
-/.devenv
 /.direnv
 /.pre-commit-config.yaml

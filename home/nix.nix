@@ -23,7 +23,7 @@ in
     (lib.mkIf cfg.enable {
       home.packages = with pkgs; [
         cachix
-        devenv
+        dix
         nix-prefetch-git
         nix-tree
         nixd

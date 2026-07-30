@@ -126,7 +126,6 @@ in
 
             ignores = [
               ".DS_Store"
-              ".devenv"
               ".dir-locals2.el"
               ".direnv"
               "nohup.out"
