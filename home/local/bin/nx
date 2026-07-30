@@ -64,9 +64,6 @@ main() {
     fetch | pin | query | sql | update | with)
       "nx-$cmd" "$@"
       ;;
-    diff)
-      exec nix run nixpkgs#nix-diff "$@"
-      ;;
     gc)
       nix store gc "$@"
       ;;
