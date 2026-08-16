@@ -70,7 +70,7 @@ in
       "alacritty/config.toml".source =
         config.lib.file.mkOutOfStoreSymlink "${config.nix-config.src}/home/config/alacritty/config.toml";
 
-      "ghostty/config".source =
+      "ghostty/config.ghostty".source =
         config.lib.file.mkOutOfStoreSymlink "${config.nix-config.src}/home/config/ghostty/config";
 
       "termite/config".source = config/termite/config;
