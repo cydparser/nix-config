@@ -1,6 +1,7 @@
 inputs@{
   config,
   iterm2-color-schemes,
+  pkgs,
   ...
 }:
 let
@@ -13,6 +14,17 @@ in
 {
   config = {
     programs = {
+      alacritty = {
+        enable = !(isWsl || pkgs.stdenv.isDarwin);
+        theme = "pastel_dark";
+
+        settings = {
+          general = {
+            "import" = [ "config.toml" ];
+          };
+        };
+      };
+
       rio = {
         enable = false;
 
@@ -55,7 +67,8 @@ in
     };
 
     xdg.configFile = {
-      "alacritty/alacritty.yml".source = config/alacritty/alacritty.yml;
+      "alacritty/config.toml".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.nix-config.src}/home/config/alacritty/config.toml";
 
       "ghostty/config".source =
         config.lib.file.mkOutOfStoreSymlink "${config.nix-config.src}/home/config/ghostty/config";

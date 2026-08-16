@@ -1,0 +1,16 @@
+# https://alacritty.org/config-alacritty.html
+
+[font]
+normal = { family = "IosevkaTerm Nerd Font Mono" }
+size = 16.0
+
+[scrolling]
+# XXX multiplier = 1
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t/-_"
+save_to_clipboard = true
+
+[window]
+# XXX decorations = "None"
+option_as_alt = "OnlyLeft"
