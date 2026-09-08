@@ -16,6 +16,8 @@ in
         programs = {
           nushell = {
             enable = true;
+            configDir = "${config.xdg.configHome}/nushell";
+
             shellAliases = utils.shellAliases // {
               "l" = "ls -a";
             };
