@@ -145,6 +145,10 @@
               inherit (inputs) iterm2-color-schemes nix-index-database;
               home-manager = inputs.home-manager-darwin;
             };
+
+            pkgs-unstable = importNixpkgs {
+              system = flake-utils.lib.system.aarch64-darwin;
+            };
           };
 
           system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -158,13 +162,15 @@
       };
 
       nixosConfigurations = {
-        vbox = lib.nixosSystem {
+        vbox = lib.nixosSystem rec {
           pkgs = importNixpkgs { system = flake-utils.lib.system.x86_64-linux; };
 
           specialArgs = {
             flake-inputs = {
               inherit (inputs) home-manager iterm2-color-schemes nix-index-database;
             };
+
+            pkgs-unstable = pkgs;
           };
 
           modules = [
@@ -173,7 +179,7 @@
           ];
         };
 
-        wsl = lib.nixosSystem {
+        wsl = lib.nixosSystem rec {
           pkgs = importNixpkgs { system = flake-utils.lib.system.x86_64-linux; };
 
           specialArgs = {
@@ -185,6 +191,8 @@
                 nix-index-database
                 ;
             };
+
+            pkgs-unstable = pkgs;
           };
 
           modules = [

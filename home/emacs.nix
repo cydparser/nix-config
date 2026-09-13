@@ -2,6 +2,7 @@ inputs@{
   config,
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 let
@@ -11,12 +12,12 @@ let
     let
       homebrew-emacs-plus = pkgs.fetchgit {
         url = "https://github.com/d12frosted/homebrew-emacs-plus.git";
-        rev = "3e95d573d5f13aba7808193b66312b38a7c66851";
-        outputHash = "1dcn3z5swbymbqxyn0b5g0l4ydhqvsdm83qayixqkrgl3fgn5shi";
+        rev = "321b91cd313cd417a3605bbd99681e9a37616744";
+        outputHash = "1phfkrcwhkn3lbxbl0w36lihyqv4rb18ky519cgarxkqgqpc41sm";
         outputHashAlgo = "sha256";
       };
 
-      emacs = pkgs.emacs-pgtk;
+      emacs = pkgs-unstable.emacs-pgtk;
 
       patchesDir = "${homebrew-emacs-plus}/patches/emacs-${builtins.head (builtins.splitVersion emacs.version)}";
     in

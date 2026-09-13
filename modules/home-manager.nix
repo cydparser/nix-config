@@ -3,6 +3,7 @@
   flake-inputs,
   lib,
   pkgs,
+  pkgs-unstable,
   ...
 }:
 {
@@ -28,6 +29,7 @@
 
         extraSpecialArgs = {
           inherit (flake-inputs) iterm2-color-schemes;
+          inherit pkgs-unstable;
         };
 
         # Install packages to /etc/profiles; needed to run `nixos-rebuild build-vm`.
