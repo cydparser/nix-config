@@ -15,11 +15,6 @@ in
   };
 
   config = lib.modules.mkMerge [
-    {
-      home.packages = with pkgs; [
-        nix-output-monitor
-      ];
-    }
     (lib.mkIf cfg.enable {
       home.packages = with pkgs; [
         cachix
