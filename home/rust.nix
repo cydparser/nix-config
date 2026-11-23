@@ -30,7 +30,7 @@
             cargo-deny
             cargo-edit
             cargo-expand
-            # cargo-semver-checks
+            cargo-semver-checks
             cargo-show-asm
           ];
         }
